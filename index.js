@@ -1,7 +1,11 @@
 import { CHANNEL_DATA } from "./assets/data.js";
 
+const room = $("#room");
+const switchbox = $("#switchbox");
+const table = $("#table");
 const tvButton = $("#tvButton");
 const tvSwitch = $("#tvSwitch");
+const lightSwitch = $("#lightSwitch");
 const tvDisplay = $("#tvDisplay");
 const remotePowerBtn = $("#remotePowerBtn");
 const volumeIncreaseBtn = $("#volumeIncreaseBtn");
@@ -27,6 +31,7 @@ const SPEAKER_VOLUME_COUNT = 50;
 const SUBSCRIBED_CHANNELS = Array.from(new Array(25), (x, i) => i);
 var isTvOn = false;
 var isSpeakerOn = false;
+var isLightsOn = true;
 var tvVolumeCount = 20;
 var tvChannelNumber = 1;
 var speakerVolumeCount = 20;
@@ -52,6 +57,7 @@ tvSwitch.click(() => {
     tvButton.addClass("tv-on");
     tvDisplay.removeClass("display-none");
     tvSwitch.addClass("switch-on");
+    timedDisplayHide(volumeContainer);
     changeChannel();
     changeVolume();
     isTvOn = true;
@@ -64,15 +70,34 @@ speakerSwitch.click(() => {
   if (isSpeakerOn) {
     speakerSwitch.removeClass("switch-on");
     speakerLight.removeClass("speaker-on");
-    speakerVolume.text("");
     isSpeakerOn = false;
+    changeVolume();
+    speakerVolume.text("");
   } else {
     speakerSwitch.addClass("switch-on");
     speakerLight.addClass("speaker-on");
     speakerVolume.text(speakerVolumeCount);
     isSpeakerOn = true;
+    changeVolume();
   }
-  changeVolume();
+});
+
+// turning off light
+
+lightSwitch.click(() => {
+  if (isLightsOn) {
+    room.addClass("dark-room");
+    table.addClass("dark-table");
+    switchbox.addClass("dark-switchbox");
+    lightSwitch.removeClass("switch-on");
+    isLightsOn = false;
+  } else {
+    room.removeClass("dark-room");
+    table.removeClass("dark-table");
+    switchbox.removeClass("dark-switchbox");
+    lightSwitch.addClass("switch-on");
+    isLightsOn = true;
+  }
 });
 
 // tv power buttons
@@ -85,6 +110,7 @@ const powerTv = () => {
       tvDisplaySource.attr("src", "");
     } else {
       tvDisplay.removeClass("display-none");
+      timedDisplayHide(volumeContainer);
       changeChannel();
       changeVolume();
     }
@@ -132,7 +158,6 @@ channelDecreaseBtn.click(() => {
 const changeVolume = () => {
   volumeCount.text(tvVolumeCount);
   volumeCountSlider.val(tvVolumeCount);
-  speakerVolume.text(speakerVolumeCount);
   const TV_VOLUME = (tvVolumeCount / VOLUME_COUNT) * 100;
   const SPEAKER_VOLUME = (speakerVolumeCount / SPEAKER_VOLUME_COUNT) * 100;
   volumeCountSlider.css(
@@ -165,6 +190,7 @@ volumeDecreaseBtn.click(() => {
 speakerVolumeIncreaseBtn.click(() => {
   if (isSpeakerOn) {
     speakerVolumeCount = speakerVolumeCount < SPEAKER_VOLUME_COUNT ? speakerVolumeCount + 1 : speakerVolumeCount;
+    speakerVolume.text(speakerVolumeCount);
     changeVolume();
   }
 });
@@ -172,6 +198,7 @@ speakerVolumeIncreaseBtn.click(() => {
 speakerVolumeDecreaseBtn.click(() => {
   if (isSpeakerOn) {
     speakerVolumeCount = speakerVolumeCount > 20 ? speakerVolumeCount - 1 : speakerVolumeCount;
+    speakerVolume.text(speakerVolumeCount);
     changeVolume();
   }
 });

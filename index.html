@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="room">
+    <div class="room" id="room">
       <div class="tv">
         <div class="display display-none" id="tvDisplay">
           <video poster="assets/loader.gif" loop autoplay id="tvDisplayVideo" class="tv-display-video display-none">
@@ -38,7 +38,7 @@
         </div>
         <div class="tvbutton" id="tvButton"></div>
       </div>
-      <div class="table">
+      <div class="table" id="table">
         <div class="vl"></div>
       </div>
       <div class="speakers">
@@ -89,9 +89,10 @@
         <img class="action-figure" src="assets/naruto.png" alt="naruto" />
         <img class="action-figure" src="assets/tanjiro.png" alt="tanjiro" />
       </div>
-      <div class="switchbox">
+      <div class="switchbox" id="switchbox">
         <div class="switch" id="tvSwitch"></div>
         <div class="switch" id="speakerSwitch"></div>
+        <div class="switch switch-on" id="lightSwitch"></div>
       </div>
       <div class="remote">
         <div class="btn powerbtn" id="remotePowerBtn">
