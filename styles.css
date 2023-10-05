@@ -5,7 +5,7 @@
 }
 
 .display-none {
-  display: none;
+  display: none !important;
 }
 
 /* styles for the room */
@@ -97,7 +97,7 @@
 
 .tv .display .volume-container input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  -moz-appearance: none;
+  appearance: none;
   width: 0;
   height: 0;
 }
@@ -106,8 +106,9 @@
 
 .switchbox {
   height: 40px;
-  width: 40px;
+  width: 60px;
   position: relative;
+  display: flex;
   top: 32%;
   left: 65%;
   background: #ffe6e1;
@@ -117,7 +118,7 @@
 
 .switchbox .switch {
   height: 100%;
-  width: 100%;
+  width: 20px;
   background: rgba(0, 0, 0, 0.75);
   border: 2px outset rgba(0, 0, 0, 0.75);
   cursor: pointer;

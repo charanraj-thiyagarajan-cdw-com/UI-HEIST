@@ -7,23 +7,33 @@ const volumeDecreaseBtn = $("#volumeDecreaseBtn");
 const channelIncreaseBtn = $("#channelIncreaseBtn");
 const channelDecreaseBtn = $("#channelDecreaseBtn");
 const channelNumber = $("#channelNumber");
-const volumeCount = $("#volumeContainer").find("span");
-const volumeCountSlider = $("#volumeContainer").find("input");
-const CHANNEL_COUNT = 5;
+const volumeContainer = $("#volumeContainer");
+const volumeCount = volumeContainer.find("span");
+const volumeCountSlider = volumeContainer.find("input");
+const CHANNEL_COUNT = 50;
 const VOLUME_COUNT = 50;
 var isTvOn = false;
-var tvVolumeCount = 1;
+var tvVolumeCount = 10;
 var tvChannelNumber = 1;
+
+const timedDisplayHide = (element) => {
+  element.removeClass("display-none");
+  setTimeout(() => {
+    element.addClass("display-none");
+  }, 5000);
+};
 
 // switching on tv
 
 tvSwitch.click(() => {
   if (isTvOn) {
     tvButton.removeClass("tv-on tv-off");
+    tvDisplay.addClass("display-none");
     tvSwitch.removeClass("switch-on");
     isTvOn = false;
   } else {
-    tvButton.addClass("tv-off");
+    tvButton.addClass("tv-on");
+    tvDisplay.removeClass("display-none");
     tvSwitch.addClass("switch-on");
     isTvOn = true;
   }
@@ -37,6 +47,8 @@ const powerTv = () => {
       tvDisplay.addClass("display-none");
     } else {
       tvDisplay.removeClass("display-none");
+      changeChannel();
+      changeVolume();
     }
     tvButton.toggleClass("tv-on tv-off");
   }
@@ -48,6 +60,7 @@ remotePowerBtn.click(() => powerTv());
 // channel change buttons
 
 const changeChannel = () => {
+  timedDisplayHide(channelNumber);
   channelNumber.text(tvChannelNumber);
 };
 
@@ -68,6 +81,7 @@ channelDecreaseBtn.click(() => {
 // volume change buttons
 
 const changeVolume = () => {
+  timedDisplayHide(volumeContainer);
   volumeCount.text(tvVolumeCount);
   volumeCountSlider.val(tvVolumeCount);
   let value = (tvVolumeCount / VOLUME_COUNT) * 100;
