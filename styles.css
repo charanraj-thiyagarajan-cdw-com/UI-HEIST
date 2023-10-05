@@ -66,6 +66,12 @@
   font-family: sans-serif;
 }
 
+.tv .display .tv-display-video{
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+}
+
 .tv .display .channel-number {
   position: absolute;
   right: 10px;

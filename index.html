@@ -17,10 +17,13 @@
     <div class="room">
       <div class="tv">
         <div class="display display-none" id="tvDisplay">
+          <video poster="assets/loader.gif" loop autoplay id="tvDisplayVideo" class="tv-display-video">
+            <source src="" type="video/mp4" id="tvDisplaySource" />
+          </video>
           <span class="channel-number" id="channelNumber">1</span>
           <div class="volume-container" id="volumeContainer">
             <span>10</span>
-            <input type="range" min="0" max="50" value="10" disabled/>
+            <input type="range" min="0" max="50" value="10" disabled />
           </div>
         </div>
         <div class="tvbutton" id="tvButton"></div>
@@ -57,6 +60,6 @@
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="index.js"></script>
+    <script src="index.js" type="module"></script>
   </body>
 </html>

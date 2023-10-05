@@ -1,3 +1,5 @@
+import { CHANNEL_DATA } from "/assets/data.js";
+
 const tvButton = $("#tvButton");
 const tvSwitch = $("#tvSwitch");
 const tvDisplay = $("#tvDisplay");
@@ -10,6 +12,8 @@ const channelNumber = $("#channelNumber");
 const volumeContainer = $("#volumeContainer");
 const volumeCount = volumeContainer.find("span");
 const volumeCountSlider = volumeContainer.find("input");
+const tvDisplayVideo = $("#tvDisplayVideo");
+const tvDisplaySource = $("#tvDisplaySource");
 const CHANNEL_COUNT = 50;
 const VOLUME_COUNT = 50;
 var isTvOn = false;
@@ -30,11 +34,15 @@ tvSwitch.click(() => {
     tvButton.removeClass("tv-on tv-off");
     tvDisplay.addClass("display-none");
     tvSwitch.removeClass("switch-on");
+    tvDisplayVideo.trigger("pause");
+    tvDisplaySource.attr("src", "");
     isTvOn = false;
   } else {
     tvButton.addClass("tv-on");
     tvDisplay.removeClass("display-none");
     tvSwitch.addClass("switch-on");
+    changeChannel();
+    changeVolume();
     isTvOn = true;
   }
 });
@@ -45,6 +53,8 @@ const powerTv = () => {
   if (isTvOn) {
     if (tvButton.hasClass("tv-on")) {
       tvDisplay.addClass("display-none");
+      tvDisplayVideo.trigger("pause");
+      tvDisplaySource.attr("src", "");
     } else {
       tvDisplay.removeClass("display-none");
       changeChannel();
@@ -62,6 +72,8 @@ remotePowerBtn.click(() => powerTv());
 const changeChannel = () => {
   timedDisplayHide(channelNumber);
   channelNumber.text(tvChannelNumber);
+  tvDisplaySource.attr("src", `https://drive.google.com/uc?export=download&id=${CHANNEL_DATA[tvChannelNumber % 10]}`);
+  tvDisplayVideo.trigger("load");
 };
 
 channelIncreaseBtn.click(() => {
@@ -108,7 +120,5 @@ volumeDecreaseBtn.click(() => {
 //on page load
 
 $(document).ready(() => {
-  changeChannel();
   volumeCountSlider.attr("max", VOLUME_COUNT);
-  changeVolume();
 });
