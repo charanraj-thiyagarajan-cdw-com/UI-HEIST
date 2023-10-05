@@ -44,25 +44,33 @@ const timedDisplayHide = (element) => {
   }, 5000);
 };
 
+const turnOffTv = () => {
+  tvDisplay.addClass("display-none");
+  tvDisplayVideo.trigger("pause");
+  tvDisplaySource.attr("src", "");
+  innerCircles.removeClass("beating-circle");
+};
+
+const turnOnTv = () => {
+  tvDisplay.removeClass("display-none");
+  isSpeakerOn && innerCircles.addClass("beating-circle");
+  timedDisplayHide(volumeContainer);
+  changeChannel();
+  changeVolume();
+};
+
 // switching on tv
 
 tvSwitch.click(() => {
   if (isTvOn) {
     tvButton.removeClass("tv-on tv-off");
-    tvDisplay.addClass("display-none");
     tvSwitch.removeClass("switch-on");
-    tvDisplayVideo.trigger("pause");
-    tvDisplaySource.attr("src", "");
-    innerCircles.removeClass("beating-circle");
+    turnOffTv();
     isTvOn = false;
   } else {
     tvButton.addClass("tv-on");
-    tvDisplay.removeClass("display-none");
     tvSwitch.addClass("switch-on");
-    isSpeakerOn && innerCircles.addClass("beating-circle");
-    timedDisplayHide(volumeContainer);
-    changeChannel();
-    changeVolume();
+    turnOnTv();
     isTvOn = true;
   }
 });
@@ -110,16 +118,9 @@ lightSwitch.click(() => {
 const powerTv = () => {
   if (isTvOn) {
     if (tvButton.hasClass("tv-on")) {
-      tvDisplay.addClass("display-none");
-      tvDisplayVideo.trigger("pause");
-      tvDisplaySource.attr("src", "");
-      innerCircles.removeClass("beating-circle");
+      turnOffTv();
     } else {
-      tvDisplay.removeClass("display-none");
-      isSpeakerOn && innerCircles.addClass("beating-circle");
-      timedDisplayHide(volumeContainer);
-      changeChannel();
-      changeVolume();
+      turnOnTv();
     }
     tvButton.toggleClass("tv-on tv-off");
   }

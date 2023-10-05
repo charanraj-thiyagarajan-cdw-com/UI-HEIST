@@ -17,6 +17,7 @@
   </head>
   <body>
     <div class="room" id="room">
+      <!-- TV code starts -->
       <div class="tv">
         <div class="display display-none" id="tvDisplay">
           <video poster="assets/loader.gif" loop autoplay id="tvDisplayVideo" class="tv-display-video display-none">
@@ -38,10 +39,22 @@
         </div>
         <div class="tvbutton" id="tvButton"></div>
       </div>
+      <!-- TV code ends -->
+
+      <!-- Table code starts -->
+      <div class="action-figures">
+        <img class="action-figure" src="assets/goku.png" alt="goku" />
+        <img class="action-figure" src="assets/kirito.png" alt="kirito" />
+        <img class="action-figure" src="assets/naruto.png" alt="naruto" />
+        <img class="action-figure" src="assets/tanjiro.png" alt="tanjiro" />
+      </div>
       <div class="table" id="table">
         <div class="vl"></div>
       </div>
+      <!-- Table code ends  -->
+
       <div class="speakers">
+        <!-- Bottom speakers start -->
         <div class="big-speaker left-bottom-speaker">
           <div class="speaker-light"></div>
           <hr />
@@ -68,6 +81,9 @@
           </div>
           <hr />
         </div>
+        <!-- Bottom speakers end -->
+
+        <!-- Top and center speakers start -->
         <div class="small-speaker left-top-speaker">
           <div class="speaker-circle outer-circle">
             <div class="speaker-circle inner-circle"></div>
@@ -82,18 +98,18 @@
           <span class="speaker-volume" id="speakerVolume"></span>
           <div class="speaker-light"></div>
         </div>
+        <!-- Top and center speakers end -->
       </div>
-      <div class="action-figures">
-        <img class="action-figure" src="assets/goku.png" alt="goku" />
-        <img class="action-figure" src="assets/kirito.png" alt="kirito" />
-        <img class="action-figure" src="assets/naruto.png" alt="naruto" />
-        <img class="action-figure" src="assets/tanjiro.png" alt="tanjiro" />
-      </div>
+
+      <!-- Switchbox code starts -->
       <div class="switchbox" id="switchbox">
         <div class="switch" id="tvSwitch"></div>
         <div class="switch" id="speakerSwitch"></div>
         <div class="switch switch-on" id="lightSwitch"></div>
       </div>
+      <!-- Switchbox code ends -->
+
+      <!-- Remote code starts -->
       <div class="remote">
         <div class="btn powerbtn" id="remotePowerBtn">
           <i class="fa-solid fa-power-off fa-xl"></i>
@@ -130,6 +146,7 @@
           </div>
         </div>
       </div>
+      <!-- Remote code ends -->
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="index.js" type="module"></script>
