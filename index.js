@@ -1,4 +1,4 @@
-import { CHANNEL_DATA } from "/assets/data.js";
+import { CHANNEL_DATA } from "./assets/data.js";
 
 const tvButton = $("#tvButton");
 const tvSwitch = $("#tvSwitch");
@@ -17,7 +17,7 @@ const tvDisplaySource = $("#tvDisplaySource");
 const CHANNEL_COUNT = 50;
 const VOLUME_COUNT = 50;
 var isTvOn = false;
-var tvVolumeCount = 10;
+var tvVolumeCount = 20;
 var tvChannelNumber = 1;
 
 const timedDisplayHide = (element) => {
@@ -101,6 +101,7 @@ const changeVolume = () => {
     "background",
     "linear-gradient(to right, #ffffff 0%, #ffffff " + value + "%, rgba(255,255,255,0) " + value + "%, rgba(255,255,255,0) 100%)"
   );
+  tvDisplayVideo.prop("volume", value / 100);
 };
 
 volumeIncreaseBtn.click(() => {
