@@ -25,6 +25,7 @@ const speakerVolume = $("#speakerVolume");
 const speakerVolumeIncreaseBtn = $("#speakerVolumeIncreaseBtn");
 const speakerVolumeDecreaseBtn = $("#speakerVolumeDecreaseBtn");
 const speakerLight = $(".speaker-light");
+const innerCircles = $(".inner-circle");
 const CHANNEL_COUNT = 50;
 const VOLUME_COUNT = 50;
 const SPEAKER_VOLUME_COUNT = 50;
@@ -52,11 +53,13 @@ tvSwitch.click(() => {
     tvSwitch.removeClass("switch-on");
     tvDisplayVideo.trigger("pause");
     tvDisplaySource.attr("src", "");
+    innerCircles.removeClass("beating-circle");
     isTvOn = false;
   } else {
     tvButton.addClass("tv-on");
     tvDisplay.removeClass("display-none");
     tvSwitch.addClass("switch-on");
+    isSpeakerOn && innerCircles.addClass("beating-circle");
     timedDisplayHide(volumeContainer);
     changeChannel();
     changeVolume();
@@ -70,6 +73,7 @@ speakerSwitch.click(() => {
   if (isSpeakerOn) {
     speakerSwitch.removeClass("switch-on");
     speakerLight.removeClass("speaker-on");
+    innerCircles.removeClass("beating-circle");
     isSpeakerOn = false;
     changeVolume();
     speakerVolume.text("");
@@ -77,6 +81,7 @@ speakerSwitch.click(() => {
     speakerSwitch.addClass("switch-on");
     speakerLight.addClass("speaker-on");
     speakerVolume.text(speakerVolumeCount);
+    isTvOn && innerCircles.addClass("beating-circle");
     isSpeakerOn = true;
     changeVolume();
   }
@@ -108,8 +113,10 @@ const powerTv = () => {
       tvDisplay.addClass("display-none");
       tvDisplayVideo.trigger("pause");
       tvDisplaySource.attr("src", "");
+      innerCircles.removeClass("beating-circle");
     } else {
       tvDisplay.removeClass("display-none");
+      isSpeakerOn && innerCircles.addClass("beating-circle");
       timedDisplayHide(volumeContainer);
       changeChannel();
       changeVolume();

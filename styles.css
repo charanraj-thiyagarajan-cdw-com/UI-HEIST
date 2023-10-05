@@ -158,7 +158,7 @@
   outline: 1px outset #f1b9b6;
 }
 
-.dark-switchbox{
+.dark-switchbox {
   border: 2px solid #555555;
   outline: 1px outset #555555;
 }
@@ -265,7 +265,7 @@
   left: 50%;
 }
 
-.dark-table .vl{
+.dark-table .vl {
   border-left: 2px outset #555555;
   border-right: 2px outset #555555;
 }
@@ -301,7 +301,7 @@
 
 .speaker-circle {
   border-radius: 50%;
-  border: 2px ridge #333333;
+  border: 2.5px ridge #333333;
   background-color: #61677a;
   background-image: url("https://www.transparenttextures.com/patterns/dark-fish-skin.png");
 }
@@ -432,4 +432,17 @@
 
 .speaker-light.speaker-on {
   background-color: #ffffff;
+}
+
+.beating-circle {
+  animation: beat 0.5s infinite linear;
+}
+
+@keyframes beat {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
+  }
 }
