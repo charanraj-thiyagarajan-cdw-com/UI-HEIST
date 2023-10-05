@@ -144,11 +144,11 @@
 
 .switchbox {
   height: 40px;
-  width: 60px;
+  width: 40px;
   position: relative;
   display: flex;
   top: 32%;
-  left: 65%;
+  left: 68%;
   background: #ffe6e1;
   border: 2px solid #f1b9b6;
   outline: 1px outset #f1b9b6;
@@ -170,13 +170,13 @@
 /* styles for the remote */
 
 .remote {
-  height: 35vh;
+  height: 38vh;
   width: 15vh;
   background-color: #333333;
   border-radius: 16px;
   position: absolute;
-  bottom: -5%;
-  left: 10%;
+  bottom: -2%;
+  left: 5%;
 }
 
 .remote .btn:hover {
@@ -200,7 +200,7 @@
 .remote .sliderbtn-container {
   display: flex;
   justify-content: space-evenly;
-  margin: 0 15px;
+  margin: 0 15px 15px;
   gap: 10px;
 }
 
@@ -226,4 +226,190 @@
   height: 0px;
   border: none;
   border-top: 5px solid #333333;
+}
+
+/* styles for the table */
+
+.table {
+  height: 16vh;
+  width: 40vw;
+  background-color: #ffffff;
+  position: absolute;
+  bottom: 8%;
+  left: 30%;
+  border: 4px solid #dbcccc;
+  outline: 2px outset #dbcccc;
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.75);
+}
+
+.table .vl {
+  height: 100%;
+  border-left: 2px outset #dbcccc;
+  border-right: 2px outset #dbcccc;
+  position: absolute;
+  left: 50%;
+}
+
+.action-figures {
+  width: 30vw;
+  height: 8.5vh;
+  position: absolute;
+  bottom: 23.5%;
+  left: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.action-figure {
+  object-fit: scale-down;
+  height: 100%;
+  width: 20%;
+}
+
+/* styles for the speaker */
+
+.big-speaker {
+  height: 28vh;
+  width: 7vw;
+  background-color: #080202;
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.75);
+  border: 4px outset #61677a;
+  position: absolute;
+  bottom: 8%;
+}
+
+.speaker-circle {
+  border-radius: 50%;
+  border: 2px ridge #333333;
+  background-color: #61677a;
+  background-image: url("https://www.transparenttextures.com/patterns/dark-fish-skin.png");
+}
+
+.left-bottom-speaker {
+  left: 18.5%;
+}
+
+.right-bottom-speaker {
+  right: 18.5%;
+}
+
+.big-speaker hr {
+  width: 100%;
+  border: 2px inset #61677a;
+}
+
+.big-speaker hr:first-of-type {
+  position: absolute;
+  top: 10%;
+}
+
+.big-speaker hr:last-child {
+  position: absolute;
+  bottom: 10%;
+}
+
+.big-speaker .speaker-light {
+  top: 5px;
+  left: 40%;
+}
+
+.big-speaker .circles-container {
+  position: absolute;
+  top: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.big-speaker .outer-circle {
+  height: 75px;
+  width: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.big-speaker .inner-circle {
+  height: 60px;
+  width: 60px;
+}
+
+.small-speaker {
+  height: 8vh;
+  width: 5vw;
+  background-color: #080202;
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.75);
+  border: 4px outset #61677a;
+  position: absolute;
+  top: 12%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left-top-speaker {
+  left: 19.5%;
+}
+
+.right-top-speaker {
+  right: 19.5%;
+}
+
+.small-speaker .outer-circle {
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.small-speaker .inner-circle {
+  height: 40px;
+  width: 40px;
+}
+
+.main-speaker {
+  height: 5vh;
+  width: 30vw;
+  background-color: #555555;
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.75);
+  background-image: url("https://www.transparenttextures.com/patterns/dark-fish-skin.png");
+  border: 2px outset #333333;
+  position: absolute;
+  bottom: 35%;
+  left: 35%;
+}
+
+.main-speaker .speaker-volume {
+  height: 100%;
+  width: 30px;
+  background-color: #61677a;
+  color: #ffffff;
+  font-family: "Orbitron";
+  border-left: 2px ridge #dbcccc;
+  border-right: 2px ridge #dbcccc;
+  position: absolute;
+  left: 47.25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.speaker-light {
+  height: 5px;
+  width: 25px;
+  border-radius: 8px;
+  position: absolute;
+  bottom: 5px;
+  left: 47.7%;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: background-color 0.75s ease;
+}
+
+.speaker-light.speaker-on {
+  background-color: #ffffff;
 }

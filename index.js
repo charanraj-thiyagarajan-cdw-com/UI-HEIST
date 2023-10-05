@@ -16,12 +16,20 @@ const tvDisplayVideo = $("#tvDisplayVideo");
 const tvDisplaySource = $("#tvDisplaySource");
 const subscribeContainer = $("#subscribeContainer");
 const subscribeButton = $("#subscribeButton");
+const speakerSwitch = $("#speakerSwitch");
+const speakerVolume = $("#speakerVolume");
+const speakerVolumeIncreaseBtn = $("#speakerVolumeIncreaseBtn");
+const speakerVolumeDecreaseBtn = $("#speakerVolumeDecreaseBtn");
+const speakerLight = $(".speaker-light");
 const CHANNEL_COUNT = 50;
 const VOLUME_COUNT = 50;
+const SPEAKER_VOLUME_COUNT = 50;
 const SUBSCRIBED_CHANNELS = Array.from(new Array(25), (x, i) => i);
 var isTvOn = false;
+var isSpeakerOn = false;
 var tvVolumeCount = 20;
 var tvChannelNumber = 1;
+var speakerVolumeCount = 20;
 
 const timedDisplayHide = (element) => {
   element.removeClass("display-none");
@@ -48,6 +56,23 @@ tvSwitch.click(() => {
     changeVolume();
     isTvOn = true;
   }
+});
+
+// switching on speaker
+
+speakerSwitch.click(() => {
+  if (isSpeakerOn) {
+    speakerSwitch.removeClass("switch-on");
+    speakerLight.removeClass("speaker-on");
+    speakerVolume.text("");
+    isSpeakerOn = false;
+  } else {
+    speakerSwitch.addClass("switch-on");
+    speakerLight.addClass("speaker-on");
+    speakerVolume.text(speakerVolumeCount);
+    isSpeakerOn = true;
+  }
+  changeVolume();
 });
 
 // tv power buttons
@@ -105,20 +130,26 @@ channelDecreaseBtn.click(() => {
 // volume change buttons
 
 const changeVolume = () => {
-  timedDisplayHide(volumeContainer);
   volumeCount.text(tvVolumeCount);
   volumeCountSlider.val(tvVolumeCount);
-  let value = (tvVolumeCount / VOLUME_COUNT) * 100;
+  speakerVolume.text(speakerVolumeCount);
+  const TV_VOLUME = (tvVolumeCount / VOLUME_COUNT) * 100;
+  const SPEAKER_VOLUME = (speakerVolumeCount / SPEAKER_VOLUME_COUNT) * 100;
   volumeCountSlider.css(
     "background",
-    "linear-gradient(to right, #ffffff 0%, #ffffff " + value + "%, rgba(255,255,255,0) " + value + "%, rgba(255,255,255,0) 100%)"
+    "linear-gradient(to right, #ffffff 0%, #ffffff " + TV_VOLUME + "%, rgba(255,255,255,0) " + TV_VOLUME + "%, rgba(255,255,255,0) 100%)"
   );
-  tvDisplayVideo.prop("volume", value / 100);
+  if (isSpeakerOn) {
+    tvDisplayVideo.prop("volume", (TV_VOLUME / 100) * 0.4 + (SPEAKER_VOLUME / 100) * 0.6);
+  } else {
+    tvDisplayVideo.prop("volume", (TV_VOLUME / 100) * 0.4);
+  }
 };
 
 volumeIncreaseBtn.click(() => {
   if (isTvOn) {
     tvVolumeCount = tvVolumeCount < VOLUME_COUNT ? tvVolumeCount + 1 : tvVolumeCount;
+    timedDisplayHide(volumeContainer);
     changeVolume();
   }
 });
@@ -126,6 +157,21 @@ volumeIncreaseBtn.click(() => {
 volumeDecreaseBtn.click(() => {
   if (isTvOn) {
     tvVolumeCount = tvVolumeCount > 1 ? tvVolumeCount - 1 : tvVolumeCount;
+    timedDisplayHide(volumeContainer);
+    changeVolume();
+  }
+});
+
+speakerVolumeIncreaseBtn.click(() => {
+  if (isSpeakerOn) {
+    speakerVolumeCount = speakerVolumeCount < SPEAKER_VOLUME_COUNT ? speakerVolumeCount + 1 : speakerVolumeCount;
+    changeVolume();
+  }
+});
+
+speakerVolumeDecreaseBtn.click(() => {
+  if (isSpeakerOn) {
+    speakerVolumeCount = speakerVolumeCount > 20 ? speakerVolumeCount - 1 : speakerVolumeCount;
     changeVolume();
   }
 });

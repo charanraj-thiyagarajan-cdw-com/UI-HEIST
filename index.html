@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UI heist</title>
+    <link rel="icon" href="data:," />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -11,7 +12,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="icon" href="data:,">
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -37,10 +38,60 @@
         </div>
         <div class="tvbutton" id="tvButton"></div>
       </div>
+      <div class="table">
+        <div class="vl"></div>
+      </div>
+      <div class="speakers">
+        <div class="big-speaker left-bottom-speaker">
+          <div class="speaker-light"></div>
+          <hr />
+          <div class="circles-container">
+            <div class="speaker-circle outer-circle">
+              <div class="speaker-circle inner-circle"></div>
+            </div>
+            <div class="speaker-circle outer-circle">
+              <div class="speaker-circle inner-circle"></div>
+            </div>
+          </div>
+          <hr />
+        </div>
+        <div class="big-speaker right-bottom-speaker">
+          <div class="speaker-light"></div>
+          <hr />
+          <div class="circles-container">
+            <div class="speaker-circle outer-circle">
+              <div class="speaker-circle inner-circle"></div>
+            </div>
+            <div class="speaker-circle outer-circle">
+              <div class="speaker-circle inner-circle"></div>
+            </div>
+          </div>
+          <hr />
+        </div>
+        <div class="small-speaker left-top-speaker">
+          <div class="speaker-circle outer-circle">
+            <div class="speaker-circle inner-circle"></div>
+          </div>
+        </div>
+        <div class="small-speaker right-top-speaker">
+          <div class="speaker-circle outer-circle">
+            <div class="speaker-circle inner-circle"></div>
+          </div>
+        </div>
+        <div class="main-speaker">
+          <span class="speaker-volume" id="speakerVolume"></span>
+          <div class="speaker-light"></div>
+        </div>
+      </div>
+      <div class="action-figures">
+        <img class="action-figure" src="assets/goku.png" alt="goku" />
+        <img class="action-figure" src="assets/kirito.png" alt="kirito" />
+        <img class="action-figure" src="assets/naruto.png" alt="naruto" />
+        <img class="action-figure" src="assets/tanjiro.png" alt="tanjiro" />
+      </div>
       <div class="switchbox">
         <div class="switch" id="tvSwitch"></div>
-        <div class="switch"></div>
-        <div class="switch"></div>
+        <div class="switch" id="speakerSwitch"></div>
       </div>
       <div class="remote">
         <div class="btn powerbtn" id="remotePowerBtn">
@@ -63,6 +114,17 @@
             <hr class="btn-seperator" />
             <div class="btn bottombtn" id="channelDecreaseBtn">
               <i class="fa-solid fa-arrow-down fa-lg"></i>
+            </div>
+          </div>
+        </div>
+        <div class="sliderbtn-container">
+          <div class="sliderbtn">
+            <div class="btn topbtn" id="speakerVolumeIncreaseBtn">
+              <i class="fa-solid fa-volume-high fa-lg"></i>
+            </div>
+            <hr class="btn-seperator" />
+            <div class="btn bottombtn" id="speakerVolumeDecreaseBtn">
+              <i class="fa-solid fa-volume-low fa-lg"></i>
             </div>
           </div>
         </div>
