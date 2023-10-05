@@ -14,8 +14,11 @@ const volumeCount = volumeContainer.find("span");
 const volumeCountSlider = volumeContainer.find("input");
 const tvDisplayVideo = $("#tvDisplayVideo");
 const tvDisplaySource = $("#tvDisplaySource");
+const subscribeContainer = $("#subscribeContainer");
+const subscribeButton = $("#subscribeButton");
 const CHANNEL_COUNT = 50;
 const VOLUME_COUNT = 50;
+const SUBSCRIBED_CHANNELS = Array.from(new Array(25), (x, i) => i);
 var isTvOn = false;
 var tvVolumeCount = 20;
 var tvChannelNumber = 1;
@@ -72,8 +75,17 @@ remotePowerBtn.click(() => powerTv());
 const changeChannel = () => {
   timedDisplayHide(channelNumber);
   channelNumber.text(tvChannelNumber);
-  tvDisplaySource.attr("src", `https://drive.google.com/uc?export=download&id=${CHANNEL_DATA[tvChannelNumber % 10]}`);
-  tvDisplayVideo.trigger("load");
+  if (jQuery.inArray(tvChannelNumber, SUBSCRIBED_CHANNELS) !== -1) {
+    subscribeContainer.addClass("display-none");
+    tvDisplayVideo.removeClass("display-none");
+    tvDisplaySource.attr("src", `https://drive.google.com/uc?export=download&id=${CHANNEL_DATA[tvChannelNumber % 10]}`);
+    tvDisplayVideo.trigger("load");
+  } else {
+    tvDisplayVideo.addClass("display-none");
+    tvDisplayVideo.trigger("pause");
+    tvDisplaySource.attr("src", "");
+    subscribeContainer.removeClass("display-none");
+  }
 };
 
 channelIncreaseBtn.click(() => {
@@ -116,6 +128,13 @@ volumeDecreaseBtn.click(() => {
     tvVolumeCount = tvVolumeCount > 1 ? tvVolumeCount - 1 : tvVolumeCount;
     changeVolume();
   }
+});
+
+// channel subscriptions
+
+subscribeButton.click(() => {
+  SUBSCRIBED_CHANNELS.push(tvChannelNumber);
+  changeChannel();
 });
 
 //on page load

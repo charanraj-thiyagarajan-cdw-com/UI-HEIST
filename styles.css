@@ -66,10 +66,42 @@
   font-family: sans-serif;
 }
 
-.tv .display .tv-display-video{
+.tv .display .tv-display-video {
   height: 100%;
   width: 100%;
   object-fit: fill;
+}
+
+.tv .display .subscribe-content {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tv .display .subscribe-background {
+  position: absolute;
+  background-image: url("assets/channel-bg.jpeg");
+  background-position: center;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  filter: blur(1px);
+  -webkit-filter: blur(1px);
+}
+
+.tv .display .subscribe-button {
+  background-color: #dd273f;
+  border-radius: 16px;
+  padding: 8px;
+  border: none;
+  color: #ffffff;
+  width: 25%;
+  cursor: pointer;
 }
 
 .tv .display .channel-number {

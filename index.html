@@ -11,16 +11,24 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="icon" href="data:,">
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="room">
       <div class="tv">
         <div class="display display-none" id="tvDisplay">
-          <video poster="assets/loader.gif" loop autoplay id="tvDisplayVideo" class="tv-display-video">
+          <video poster="assets/loader.gif" loop autoplay id="tvDisplayVideo" class="tv-display-video display-none">
             <source src="" type="video/mp4" id="tvDisplaySource" />
             <p>Oops! Contact TV support!!</p>
           </video>
+          <div class="display-none" id="subscribeContainer">
+            <div class="subscribe-background"></div>
+            <div class="subscribe-content">
+              <p>Channel is not subscribed!</p>
+              <button class="subscribe-button" id="subscribeButton">SUBSCRIBE</button>
+            </div>
+          </div>
           <span class="channel-number" id="channelNumber">1</span>
           <div class="volume-container" id="volumeContainer">
             <span>10</span>
