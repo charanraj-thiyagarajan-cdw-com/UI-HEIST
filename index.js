@@ -137,7 +137,9 @@ const changeChannel = () => {
   if (jQuery.inArray(tvChannelNumber, SUBSCRIBED_CHANNELS) !== -1) {
     subscribeContainer.addClass("display-none");
     tvDisplayVideo.removeClass("display-none");
-    tvDisplaySource.attr("src", `https://drive.google.com/uc?export=download&id=${CHANNEL_DATA[tvChannelNumber % 10]}`);
+    // old way using gdrive and data.js, currently not supported
+    // tvDisplaySource.attr("src", `https://drive.google.com/uc?export=download&id=${CHANNEL_DATA[tvChannelNumber % 10]}`);
+    tvDisplaySource.attr("src", `./assets/video${tvChannelNumber % 3}.mp4`);
     tvDisplayVideo.trigger("load");
   } else {
     tvDisplayVideo.addClass("display-none");
