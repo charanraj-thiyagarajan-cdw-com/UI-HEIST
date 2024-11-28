@@ -11,7 +11,7 @@
 /* styles for the room */
 
 .room {
-  background-image: url("assets/hall.png");
+  background-image: url("./assets/hall.png");
   background-position: center;
   background-size: cover;
   position: relative;
@@ -21,7 +21,7 @@
 }
 
 .dark-room {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("assets/hall.png");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("./assets/hall.png");
 }
 
 /* styles for the tv */
@@ -89,7 +89,7 @@
 
 .tv .display .subscribe-background {
   position: absolute;
-  background-image: url("assets/channel-bg.jpeg");
+  background-image: url("./assets/channel-bg.jpeg");
   background-position: center;
   background-size: cover;
   height: 100%;

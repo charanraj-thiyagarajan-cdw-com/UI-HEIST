@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ui-heist-chapter-2</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles/index.css" />
+  </head>
+  <body>
+    <!-- START :: road video -->
+    <video class="bg-video" id="bgVideo" muted loop>
+      <source src="./assets/road-bg.mp4" type="video/mp4" />
+    </video>
+    <div class="bg-overlay" id="bgFullOverlay"></div>
+    <div class="d-none" id="bgSideOverlay">
+      <div class="left-overlay"></div>
+      <div class="right-overlay"></div>
+    </div>
+    <!-- END :: road video -->
+    <!-- START :: car environment wrapper -->
+    <section class="car-environment-wrapper">
+      <!-- START :: car background wrapper -->
+      <div class="car-background-wrapper">
+        <div class="car-background"></div>
+        <!-- START :: car wrapper -->
+        <div class="car-wrapper">
+          <img src="./assets/Car-without-bg.png" alt="car" />
+          <!-- START :: game start screen -->
+          <div class="game-start-content">
+            <div class="power-icon-wrapper icon game-icon" id="startBtn">
+              <i class="fa-solid fa-power-off medium-icon"></i>
+            </div>
+            <h2 class="game-start-title">ENGINE ON</h2>
+            <p class="game-start-description">Let the game begins...! Have a safe drive</p>
+          </div>
+          <!-- END :: game end screen  -->
+          <!-- START :: car dashboard -->
+          <div class="car-dashboard">
+            <!-- START :: car steering wheel -->
+            <div id="carSteeringWheel" class="car-steering-wheel-wrapper game-on-content d-none">
+              <img src="./assets/steering-wheel.png" alt="car-steering-wheel" />
+            </div>
+            <!-- END :: car steering wheel -->
+            <!-- START :: dashboard panel -->
+            <div class="dashboard-left-panel game-on-content d-none">
+              <div id="dashboardTime" class="dashboard-time"></div>
+              <div class="fuel-bar-wrapper">
+                <div class="fuel-number" id="fuel">60</div>
+                <div class="fuel-unit">Ltrs</div>
+                <div class="fuel-progress-wrapper">
+                  <div class="fuel-progress-bar" id="fuelBar"></div>
+                </div>
+              </div>
+            </div>
+            <div class="dashboad-center-panel game-on-content d-none">
+              <div class="dashboard-greeting" id="greetingMessage"></div>
+              <div class="speedometer">
+                <div class="speed-limit-warning-wrapper d-none" id="speedWarning">
+                  <div class="warning-icon-wrapper">
+                    <img src="./assets/warning.png" alt="warning" />
+                  </div>
+                  <div class="waring-message">Speed Limit Exceeded</div>
+                </div>
+                <div class="speedometer-number-wrapper">
+                  <div class="speedometer-number" id="speed">0</div>
+                  <div class="speedometer-unit">Kmph</div>
+                </div>
+              </div>
+            </div>
+            <div class="dashboard-temperature-wrapper game-on-content d-none">
+              <div id="dashboardTemrature" class="dashboard-temparature">34 °C</div>
+              <div class="dashboard-temperature-text">Chennai</div>
+            </div>
+            <!-- END :: dashboard panel -->
+          </div>
+          <!-- END :: car dashboard -->
+
+          <!-- START :: action button -->
+          <div class="action-buttons game-on-content d-none">
+            <div class="power-icon-wrapper icon bottom-first-tab game-stop-icon" id="stopBtn">
+              <i class="fa-solid fa-power-off medium-icon"></i>
+            </div>
+            <div class="light-wrapper icon bottom-first-tab" id="lightBtn">
+              <img src="./assets/beam.png" alt="light" />
+            </div>
+            <div class="acceralator-wrapper icon bottom-second-tab" id="acceleratorBtn">
+              <img src="./assets/accelerator.png" alt="acceralator" />
+            </div>
+            <div class="brake-wrapper icon bottom-second-tab" id="brakeBtn">
+              <img src="./assets/brake.png" alt="brake" />
+            </div>
+            <div class="camera-wrapper icon bottom-second-tab" id="cameraBtn">
+              <i class="fa-solid fa-camera-retro medium-icon"></i>
+            </div>
+            <div class="volume-wrapper icon bottom-first-tab" id="hornBtn">
+              <i class="fa-solid fa-volume-high medium-icon"></i>
+            </div>
+            <div class="fuel-wrapper icon bottom-first-tab" id="fuelBtn">
+              <i class="fa-solid fa-gas-pump medium-icon"></i>
+            </div>
+            <div class="left-caret-wrapper icon bottom-second-tab" id="leftBtn">
+              <i class="fa-solid fa-caret-left big-icon"></i>
+            </div>
+            <div class="right-caret-wrapper icon bottom-second-tab" id="rightBtn">
+              <i class="fa-solid fa-caret-right big-icon"></i>
+            </div>
+          </div>
+          <!-- END :: action buttons -->
+        </div>
+        <!-- END :: car wrapper -->
+      </div>
+      <!-- END :: car background wrapper -->
+    </section>
+    <!-- END :: car environment wrapper -->
+
+    <!-- START :: Radio -->
+    <div class="radio-wrapper">
+      <i class="fa-solid fa-music music" id="music"></i>
+      <img src="./assets/car-audio.png" alt="radio" />
+    </div>
+    <!-- END :: Radio -->
+
+    <!-- START :: car camera area -->
+    <video id="backCamera" class="back-camera" playsinline autoplay muted></video>
+    <div class="dice" id="dice"></div>
+    <!-- END :: car camera area -->
+
+    <!-- START :: AUDIO TAGS -->
+    <audio id="song1" src=" ./sounds/master_the_blaster.mp3" preload="auto"></audio>
+    <audio id="song2" src="./sounds/leo_ordinary_person.mp3" preload="auto"></audio>
+    <audio id="song3" src="./sounds/billa_theme_full.mp3" preload="auto"></audio>
+    <audio id="song4" src="./sounds/mankatha_promo_song.mp3" preload="auto"></audio>
+    <audio id="song5" src="./sounds/kabali_theme_bgm.mp3" preload="auto"></audio>
+    <audio id="carEngineStartAudio" src="./sounds/car-start.mp3" preload="auto"></audio>
+    <audio id="carEngineRunningAudio" src="./sounds/car-running.mp3" preload="auto" loop></audio>
+    <audio id="carEngineGearShiftAudio" src="./sounds/car-gear-shift.mp3" preload="auto"></audio>
+    <audio id="carEngineAccelaratingAudio" src="./sounds/car-accelarating.mp3" preload="auto" loop></audio>
+    <audio id="carEngineBrakeAudio" src="./sounds/car-break.mp3" preload="auto"></audio>
+    <audio id="carHornAudio" src="./sounds/car-horn.wav" preload="auto" loop></audio>
+    <!-- END :: AUDIO TAGS -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="./javascript/time.js"></script>
+    <script src="./javascript/index.js"></script>
+    <script src="./javascript/video.js"></script>
+    <script src="./javascript/rotateSteering.js"></script>
+    <script src="./javascript/speed.js"></script>
+    <script src="./javascript/temperature.js"></script>
+    <script src="./javascript/fuel.js"></script>
+    <script src="./javascript/buttonActions.js"></script>
+  </body>
+</html>

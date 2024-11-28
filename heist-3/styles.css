@@ -1,0 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* styles for the background */
+
+.road {
+    background-image: url("./assets/road.png");
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+  }

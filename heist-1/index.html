@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UI heist</title>
+    <link rel="icon" href="data:," />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="room" id="room">
+      <!-- TV code starts -->
+      <div class="tv">
+        <div class="display display-none" id="tvDisplay">
+          <video poster="./assets/loader.gif" loop autoplay id="tvDisplayVideo" class="tv-display-video display-none">
+            <source src="" type="video/mp4" id="tvDisplaySource" />
+            <p>Oops! Contact TV support!!</p>
+          </video>
+          <div class="display-none" id="subscribeContainer">
+            <div class="subscribe-background"></div>
+            <div class="subscribe-content">
+              <p>Channel is not subscribed!</p>
+              <button class="subscribe-button" id="subscribeButton">SUBSCRIBE</button>
+            </div>
+          </div>
+          <span class="channel-number" id="channelNumber">1</span>
+          <div class="volume-container" id="volumeContainer">
+            <span>10</span>
+            <input type="range" min="0" max="50" value="10" disabled />
+          </div>
+        </div>
+        <div class="tvbutton" id="tvButton"></div>
+      </div>
+      <!-- TV code ends -->
+
+      <!-- Table code starts -->
+      <div class="action-figures">
+        <img class="action-figure" src="./assets/goku.png" alt="goku" />
+        <img class="action-figure" src="./assets/kirito.png" alt="kirito" />
+        <img class="action-figure" src="./assets/naruto.png" alt="naruto" />
+        <img class="action-figure" src="./assets/tanjiro.png" alt="tanjiro" />
+      </div>
+      <div class="table" id="table">
+        <div class="vl"></div>
+      </div>
+      <!-- Table code ends  -->
+
+      <div class="speakers">
+        <!-- Bottom speakers start -->
+        <div class="big-speaker left-bottom-speaker">
+          <div class="speaker-light"></div>
+          <hr />
+          <div class="circles-container">
+            <div class="speaker-circle outer-circle">
+              <div class="speaker-circle inner-circle"></div>
+            </div>
+            <div class="speaker-circle outer-circle">
+              <div class="speaker-circle inner-circle"></div>
+            </div>
+          </div>
+          <hr />
+        </div>
+        <div class="big-speaker right-bottom-speaker">
+          <div class="speaker-light"></div>
+          <hr />
+          <div class="circles-container">
+            <div class="speaker-circle outer-circle">
+              <div class="speaker-circle inner-circle"></div>
+            </div>
+            <div class="speaker-circle outer-circle">
+              <div class="speaker-circle inner-circle"></div>
+            </div>
+          </div>
+          <hr />
+        </div>
+        <!-- Bottom speakers end -->
+
+        <!-- Top and center speakers start -->
+        <div class="small-speaker left-top-speaker">
+          <div class="speaker-circle outer-circle">
+            <div class="speaker-circle inner-circle"></div>
+          </div>
+        </div>
+        <div class="small-speaker right-top-speaker">
+          <div class="speaker-circle outer-circle">
+            <div class="speaker-circle inner-circle"></div>
+          </div>
+        </div>
+        <div class="main-speaker">
+          <span class="speaker-volume" id="speakerVolume"></span>
+          <div class="speaker-light"></div>
+        </div>
+        <!-- Top and center speakers end -->
+      </div>
+
+      <!-- Switchbox code starts -->
+      <div class="switchbox" id="switchbox">
+        <div class="switch" id="tvSwitch"></div>
+        <div class="switch" id="speakerSwitch"></div>
+        <div class="switch switch-on" id="lightSwitch"></div>
+      </div>
+      <!-- Switchbox code ends -->
+
+      <!-- Remote code starts -->
+      <div class="remote">
+        <div class="btn powerbtn" id="remotePowerBtn">
+          <i class="fa-solid fa-power-off fa-xl"></i>
+        </div>
+        <div class="sliderbtn-container">
+          <div class="sliderbtn">
+            <div class="btn topbtn" id="volumeIncreaseBtn">
+              <i class="fa-solid fa-plus fa-lg"></i>
+            </div>
+            <hr class="btn-seperator" />
+            <div class="btn bottombtn" id="volumeDecreaseBtn">
+              <i class="fa-solid fa-minus fa-lg"></i>
+            </div>
+          </div>
+          <div class="sliderbtn">
+            <div class="btn topbtn" id="channelIncreaseBtn">
+              <i class="fa-solid fa-arrow-up fa-lg"></i>
+            </div>
+            <hr class="btn-seperator" />
+            <div class="btn bottombtn" id="channelDecreaseBtn">
+              <i class="fa-solid fa-arrow-down fa-lg"></i>
+            </div>
+          </div>
+        </div>
+        <div class="sliderbtn-container">
+          <div class="sliderbtn">
+            <div class="btn topbtn" id="speakerVolumeIncreaseBtn">
+              <i class="fa-solid fa-volume-high fa-lg"></i>
+            </div>
+            <hr class="btn-seperator" />
+            <div class="btn bottombtn" id="speakerVolumeDecreaseBtn">
+              <i class="fa-solid fa-volume-low fa-lg"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Remote code ends -->
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="index.js" type="module"></script>
+  </body>
+</html>
