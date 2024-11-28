@@ -4,14 +4,86 @@
   box-sizing: border-box;
 }
 
-/* styles for the background */
+/* styles for the roads */
+
+.road-bg {
+  background-image: url("./assets/road.png");
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
 
 .road {
-    background-image: url("./assets/road.png");
-    background-position: center;
-    background-size: cover;
-    position: relative;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
+  position: absolute;
+}
+
+.leftways-road {
+  height: 12vh;
+  width: 100vw;
+  background-color: red;
+  top: 52%;
+}
+
+.rightways-road {
+  height: 12vh;
+  width: 100vw;
+  background-color: green;
+  top: 37%;
+}
+
+.bottomways-road {
+  height: 100vh;
+  width: 15vw;
+  background-color: pink;
+  left: 51%;
+}
+
+.topways-road {
+  height: 100vh;
+  width: 15vw;
+  background-color: blue;
+  left: 35%;
+}
+
+/* styles for the car */
+
+.car {
+  height: 120px;
+  width: 60px;
+  position: absolute;
+}
+
+.right {
+  transform: rotate(90deg);
+}
+
+.bottom {
+  transform: rotate(180deg);
+}
+
+.left {
+  transform: rotate(270deg);
+}
+
+/* animations for the car */
+
+@keyframes moveleft {
+  0% {
+    transform: translateX(0) rotate(270deg);
   }
+  100% {
+    transform: translateX(-150vw) rotate(270deg);
+  }
+}
+
+@keyframes moveright {
+  0% {
+    transform: translateX(0) rotate(90deg);
+  }
+  100% {
+    transform: translateX(150vw) rotate(90deg);
+  }
+}
