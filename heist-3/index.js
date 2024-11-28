@@ -8,6 +8,8 @@ const CARS_LENGTH = CARS.length;
 const CAR_ANIMATIONS = {
   left: { sp: 28, inc: 8 },
   right: { sp: 22, inc: 8 },
+  bottom: { sp: 22, inc: 13 },
+  top: { sp: 10, inc: 13 },
 };
 const MOVING_CARS = {
   left: [],
@@ -66,30 +68,47 @@ const createCar = (direction) => {
   return car;
 };
 
-const move = () => {
-  const moveCars = (cars) => {
-    let delay = 0;
-    cars.each(function () {
-      const $car = $(this);
-      const direction = $car.data("direction");
-      setTimeout(() => {
-        $car.css({ animation: `move${direction} 5s linear forwards` });
-      }, delay * 200);
-      addCarEventListener($car, direction);
-      delay += Math.random() * 1.5 + 0.5;
-    });
-  };
-  moveCars($(".car.left"));
-  moveCars($(".car.right"));
+const moveCars = (cars) => {
+  let delay = 0;
+  cars.each(function () {
+    const $car = $(this);
+    const direction = $car.data("direction");
+    setTimeout(() => {
+      $car.css({ animation: `move${direction} 5s linear forwards` });
+    }, delay * 200);
+    addCarEventListener($car, direction);
+    delay += Math.random() * 1.25 + 0.25;
+  });
 };
 
-$("button").on("click", move);
-
 $(document).ready(() => {
+  let alternateFlag = true;
   for (let i = 0; i < 8; i++) {
     const car = createCar("left");
     leftRoad.append(car);
     const rightCar = createCar("right");
     rightRoad.append(rightCar);
   }
+  setInterval(() => {
+    if (alternateFlag) {
+      moveCars($(".car.left"));
+      moveCars($(".car.right"));
+      for (let i = 0; i < 8; i++) {
+        const bottomCar = createCar("bottom");
+        bottomRoad.append(bottomCar);
+        const topCar = createCar("top");
+        topRoad.append(topCar);
+      }
+    } else {
+      moveCars($(".car.top"));
+      moveCars($(".car.bottom"));
+      for (let i = 0; i < 8; i++) {
+        const car = createCar("left");
+        leftRoad.append(car);
+        const rightCar = createCar("right");
+        rightRoad.append(rightCar);
+      }
+    }
+    alternateFlag = !alternateFlag;
+  }, 8000);
 });
