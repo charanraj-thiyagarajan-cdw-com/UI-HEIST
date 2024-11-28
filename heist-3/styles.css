@@ -23,14 +23,12 @@
 .leftways-road {
   height: 12vh;
   width: 100vw;
-  background-color: red;
   top: 52%;
 }
 
 .rightways-road {
   height: 12vh;
   width: 100vw;
-  background-color: green;
   top: 37%;
 }
 
@@ -58,6 +56,7 @@
 
 .right {
   transform: rotate(90deg);
+  left: -10vw;
 }
 
 .bottom {
@@ -66,24 +65,48 @@
 
 .left {
   transform: rotate(270deg);
+  right: -10vw;
 }
 
 /* animations for the car */
 
 @keyframes moveleft {
   0% {
-    transform: translateX(0) rotate(270deg);
+    right: var(--start-position);
   }
   100% {
-    transform: translateX(-150vw) rotate(270deg);
+    right: calc(150vw + var(--start-position));
   }
 }
 
 @keyframes moveright {
   0% {
-    transform: translateX(0) rotate(90deg);
+    left: var(--start-position);
   }
   100% {
-    transform: translateX(150vw) rotate(90deg);
+    left: calc(150vw + var(--start-position));
   }
+}
+
+@keyframes startleft {
+  0% {
+    right: -10vw;
+  }
+  100% {
+    right: var(--start-position);
+  }
+}
+
+@keyframes startright {
+  0% {
+    left: -10vw;
+  }
+  100% {
+    left: var(--start-position);
+  }
+}
+
+button {
+  position: absolute;
+  top: 0;
 }

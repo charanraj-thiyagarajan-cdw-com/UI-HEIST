@@ -6,8 +6,8 @@ const CARS = [
 ];
 const CARS_LENGTH = CARS.length;
 const CAR_ANIMATIONS = {
-  left: { sp: 68, inc: 8 },
-  right: { sp: 74, inc: 8 },
+  left: { sp: 28, inc: 8 },
+  right: { sp: 22, inc: 8 },
 };
 const MOVING_CARS = {
   left: [],
@@ -48,23 +48,42 @@ const createCar = (direction) => {
   const animation = CAR_ANIMATIONS[direction];
   const carsLength = MOVING_CARS[direction].length;
 
-  const startingPosition = animation.sp + carsLength * animation.inc;
+  const startingPosition = animation.sp - carsLength * animation.inc;
   const car = $("<img>", {
     src: CARS[randomCar].src,
     alt: CARS[randomCar].alt,
     class: `car ${direction}`,
+    "data-direction": direction,
     css: {
-      [direction]: `${startingPosition}%`,
-      animation: `move${direction} 5s linear forwards`,
+      animation: `start${direction} 1s linear forwards`,
+      "--start-position": `${startingPosition}%`,
     },
   });
   setTimeout(() => {
     car.css("animation-delay", `${carsLength * 0.25}s`);
   }, 0);
-  addCarEventListener(car, direction);
   MOVING_CARS[direction].push(car);
   return car;
 };
+
+const move = () => {
+  const moveCars = (cars) => {
+    let delay = 0;
+    cars.each(function () {
+      const $car = $(this);
+      const direction = $car.data("direction");
+      setTimeout(() => {
+        $car.css({ animation: `move${direction} 5s linear forwards` });
+      }, delay * 200);
+      addCarEventListener($car, direction);
+      delay += Math.random() * 1.5 + 0.5;
+    });
+  };
+  moveCars($(".car.left"));
+  moveCars($(".car.right"));
+};
+
+$("button").on("click", move);
 
 $(document).ready(() => {
   for (let i = 0; i < 8; i++) {
