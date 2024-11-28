@@ -8,20 +8,26 @@ const CARS_LENGTH = CARS.length;
 const CAR_ANIMATIONS = {
   left: { sp: 28, inc: 8 },
   right: { sp: 22, inc: 8 },
-  bottom: { sp: 22, inc: 13 },
-  top: { sp: 10, inc: 13 },
+  bottom1: { sp: 22, inc: 13 },
+  bottom2: { sp: 22, inc: 13 },
+  top1: { sp: 10, inc: 13 },
+  top2: { sp: 10, inc: 13 },
 };
 const MOVING_CARS = {
   left: [],
   right: [],
-  bottom: [],
-  top: [],
+  bottom1: [],
+  bottom2: [],
+  top1: [],
+  top2: [],
 };
 
 const leftRoad = $("#leftRoad");
 const rightRoad = $("#rightRoad");
-const bottomRoad = $("#bottomRoad");
-const topRoad = $("#topRoad");
+const bottomRoad1 = $("#bottomRoad1");
+const bottomRoad2 = $("#bottomRoad2");
+const topRoad1 = $("#topRoad1");
+const topRoad2 = $("#topRoad2");
 
 const addCarEventListener = (car, direction) => {
   const checkCondition = (direction) => {
@@ -31,9 +37,11 @@ const addCarEventListener = (car, direction) => {
         return rect.left <= 0;
       case "right":
         return rect.right >= window.innerWidth;
-      case "top":
+      case "top1":
+      case "top2":
         return rect.top <= 0;
-      case "bottom":
+      case "bottom1":
+      case "bottom2":
         return rect.bottom >= window.innerHeight;
     }
   };
@@ -57,7 +65,7 @@ const createCar = (direction) => {
     class: `car ${direction}`,
     "data-direction": direction,
     css: {
-      animation: `start${direction} 1s linear forwards`,
+      animation: `start${direction.replace(/\d+/g, "")} 1s linear forwards`,
       "--start-position": `${startingPosition}%`,
     },
   });
@@ -74,7 +82,7 @@ const moveCars = (cars) => {
     const $car = $(this);
     const direction = $car.data("direction");
     setTimeout(() => {
-      $car.css({ animation: `move${direction} 5s linear forwards` });
+      $car.css({ animation: `move${direction.replace(/\d+/g, "")} 3s ease-in forwards` });
     }, delay * 200);
     addCarEventListener($car, direction);
     delay += Math.random() * 1.25 + 0.25;
@@ -83,32 +91,30 @@ const moveCars = (cars) => {
 
 $(document).ready(() => {
   let alternateFlag = true;
-  for (let i = 0; i < 8; i++) {
-    const car = createCar("left");
-    leftRoad.append(car);
-    const rightCar = createCar("right");
-    rightRoad.append(rightCar);
+  for (let i = 0; i < 6; i++) {
+    leftRoad.append(createCar("left"));
+    rightRoad.append(createCar("right"));
   }
   setInterval(() => {
     if (alternateFlag) {
       moveCars($(".car.left"));
       moveCars($(".car.right"));
-      for (let i = 0; i < 8; i++) {
-        const bottomCar = createCar("bottom");
-        bottomRoad.append(bottomCar);
-        const topCar = createCar("top");
-        topRoad.append(topCar);
+      for (let i = 0; i < 4; i++) {
+        bottomRoad1.append(createCar("bottom1"));
+        bottomRoad2.append(createCar("bottom2"));
+        topRoad1.append(createCar("top1"));
+        topRoad2.append(createCar("top2"));
       }
     } else {
-      moveCars($(".car.top"));
-      moveCars($(".car.bottom"));
-      for (let i = 0; i < 8; i++) {
-        const car = createCar("left");
-        leftRoad.append(car);
-        const rightCar = createCar("right");
-        rightRoad.append(rightCar);
+      moveCars($(".car.top1"));
+      moveCars($(".car.top2"));
+      moveCars($(".car.bottom1"));
+      moveCars($(".car.bottom2"));
+      for (let i = 0; i < 6; i++) {
+        leftRoad.append(createCar("left"));
+        rightRoad.append(createCar("right"));
       }
     }
     alternateFlag = !alternateFlag;
-  }, 8000);
+  }, 5000);
 });

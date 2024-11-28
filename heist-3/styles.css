@@ -34,14 +34,24 @@
 
 .bottomways-road {
   height: 100vh;
-  width: 15vw;
-  left: 51%;
+  width: 6vw;
+}
+.br-lane-1 {
+  left: 52%;
+}
+.br-lane-2 {
+  left: 59%;
 }
 
 .topways-road {
   height: 100vh;
-  width: 15vw;
-  left: 35%;
+  width: 6vw;
+}
+.tr-lane-1 {
+  left: 36%;
+}
+.tr-lane-2 {
+  left: 43%;
 }
 
 /* styles for the car */
@@ -52,7 +62,8 @@
   position: absolute;
 }
 
-.top {
+.top1,
+.top2 {
   bottom: -20vh;
 }
 
@@ -61,7 +72,8 @@
   left: -10vw;
 }
 
-.bottom {
+.bottom1,
+.bottom2 {
   transform: rotate(180deg);
   top: -20vh;
 }
@@ -132,7 +144,7 @@
     top: var(--start-position);
   }
   100% {
-    top: calc(150vw + var(--start-position));
+    top: calc(150vh + var(--start-position));
   }
 }
 
@@ -141,7 +153,7 @@
     bottom: var(--start-position);
   }
   100% {
-    bottom: calc(150vw + var(--start-position));
+    bottom: calc(150vh + var(--start-position));
   }
 }
 
