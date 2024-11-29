@@ -5,3 +5,52 @@
   width: 40px;
   position: absolute;
 }
+
+.vertical1,
+.vertical2 {
+  bottom: -20vh;
+}
+
+.horizontal1,
+.horizontal2 {
+  transform: rotate(270deg);
+  right: -10vw;
+}
+
+/* animation for the human */
+
+@keyframes starttohorizontal {
+  0% {
+    right: -10vw;
+  }
+  100% {
+    right: var(--start-position);
+  }
+}
+
+@keyframes starttovertical {
+  0% {
+    bottom: -20vh;
+  }
+  100% {
+    bottom: var(--start-position);
+  }
+}
+
+@keyframes movehorizontal {
+  0% {
+    right: var(--start-position);
+  }
+  100% {
+    right: calc(150vw + var(--start-position));
+  }
+}
+
+@keyframes movevertical {
+  0% {
+    bottom: var(--start-position);
+  }
+  100% {
+    bottom: calc(150vh + var(--start-position));
+  }
+}

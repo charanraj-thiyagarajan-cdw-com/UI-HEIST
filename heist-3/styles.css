@@ -1,6 +1,7 @@
 @import url("./styles/road.css");
 @import url("./styles/car.css");
 @import url("./styles/light.css");
+@import url("./styles/human.css");
 
 * {
   margin: 0;
@@ -26,4 +27,5 @@
 .count {
   color: black;
   font-size: 24px;
+  font-family: sans-serif;
 }
