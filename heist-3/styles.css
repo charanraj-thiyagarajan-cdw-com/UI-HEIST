@@ -85,7 +85,7 @@
 
 /* animations for the car */
 
-@keyframes startleft {
+@keyframes starttoleft {
   0% {
     right: -10vw;
   }
@@ -94,7 +94,7 @@
   }
 }
 
-@keyframes startright {
+@keyframes starttoright {
   0% {
     left: -10vw;
   }
@@ -103,7 +103,7 @@
   }
 }
 
-@keyframes startbottom {
+@keyframes starttobottom {
   0% {
     top: -20vh;
   }
@@ -112,7 +112,7 @@
   }
 }
 
-@keyframes starttop {
+@keyframes starttotop {
   0% {
     bottom: -20vh;
   }
@@ -157,7 +157,36 @@
   }
 }
 
-button {
+/* styles for the pavements */
+
+.vertival-z-cross {
+  height: 100vh;
+  width: 3vw;
+  background-color: red;
+}
+.vz-lane-1 {
+  left: 26.5%;
+}
+.vz-lane-2 {
+  left: 30.5%;
+}
+
+.horizontal-z-cross {
+  height: 4vh;
+  width: 100vw;
+  background-color: green;
+}
+.hz-lane-1 {
+  top: 65%;
+}
+.hz-lane-2 {
+  top: 70%;
+}
+
+/* styles for the humans */
+
+.human {
+  height: 40px;
+  width: 40px;
   position: absolute;
-  top: 0;
 }

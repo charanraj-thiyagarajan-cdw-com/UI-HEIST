@@ -4,6 +4,12 @@ const CARS = [
   { src: "./assets/white.png", alt: "white" },
   { src: "./assets/yellow.png", alt: "yellow" },
 ];
+const HUMANS = [
+  { src: "./assets/hm1.png", alt: "human1" },
+  { src: "./assets/hm2.png", alt: "human2" },
+  { src: "./assets/hm3.png", alt: "human3" },
+  { src: "./assets/hm4.png", alt: "human4" },
+];
 const CARS_LENGTH = CARS.length;
 const CAR_ANIMATIONS = {
   left: { sp: 28, inc: 8 },
@@ -65,7 +71,7 @@ const createCar = (direction) => {
     class: `car ${direction}`,
     "data-direction": direction,
     css: {
-      animation: `start${direction.replace(/\d+/g, "")} 1s linear forwards`,
+      animation: `startto${direction.replace(/\d+/g, "")} 1s linear forwards`,
       "--start-position": `${startingPosition}%`,
     },
   });
@@ -81,9 +87,9 @@ const moveCars = (cars) => {
   cars.each(function () {
     const $car = $(this);
     const direction = $car.data("direction");
-    setTimeout(() => {
+    // setTimeout(() => {
       $car.css({ animation: `move${direction.replace(/\d+/g, "")} 3s ease-in forwards` });
-    }, delay * 200);
+    // }, delay * 200);
     addCarEventListener($car, direction);
     delay += Math.random() * 1.25 + 0.25;
   });
