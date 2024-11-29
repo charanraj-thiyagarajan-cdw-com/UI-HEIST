@@ -11,8 +11,8 @@ const HUMANS = [
   { src: "./assets/hm4.png", alt: "human4" },
 ];
 const CAR_ANIMATIONS = {
-  left: { sp: 28, inc: 8 },
-  right: { sp: 22, inc: 8 },
+  left: { sp: 27, inc: 8 },
+  right: { sp: 21, inc: 8 },
   bottom1: { sp: 22, inc: 13 },
   bottom2: { sp: 22, inc: 13 },
   top1: { sp: 10, inc: 13 },
