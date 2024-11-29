@@ -37,22 +37,6 @@ const MOVING_CARS = Object.keys(CAR_ANIMATIONS).reduce((acc, key) => ({ ...acc, 
 
 const getRandomCar = () => CARS[Math.floor(Math.random() * CARS.length)];
 
-const addAnimationEndListener = (car, direction) => {
-  car.on("animationend", () => {
-    const rect = car[0].getBoundingClientRect();
-    const isOutOfView =
-      (direction === "left" && rect.left <= 0) ||
-      (direction === "right" && rect.right >= window.innerWidth) ||
-      (direction.startsWith("top") && rect.top <= 0) ||
-      (direction.startsWith("bottom") && rect.bottom >= window.innerHeight);
-
-    if (isOutOfView) {
-      car.remove();
-      MOVING_CARS[direction].shift();
-    }
-  });
-};
-
 const createCar = (direction) => {
   const { src, alt } = getRandomCar();
   const { sp, inc } = CAR_ANIMATIONS[direction];
@@ -82,36 +66,56 @@ const moveCars = (direction) => {
     setTimeout(() => {
       car.css({ animation: `move${direction.replace(/\d+/g, "")} 3s ease-in forwards` });
     }, index * Math.floor(Math.random() * 10) + 240);
-    addAnimationEndListener(car, direction);
+    car.on("animationend", () => {
+      car.remove();
+      MOVING_CARS[direction].shift();
+    });
   });
 };
 
-const initializeCars = (directions, count) => {
+const initializeTraffic = (directions, vehicleFrequency) => {
   directions.forEach((direction) => {
-    for (let i = 0; i < count; i++) {
+    setInterval(() => {
       createCar(direction);
-    }
+    }, 1000 / vehicleFrequency);
   });
 };
 
-const toggleTrafficLights = (isYActive) => {
-  TRAFFIC_LIGHTS.yGreen.toggleClass("visible", isYActive);
-  TRAFFIC_LIGHTS.yRed.toggleClass("visible", !isYActive);
-  TRAFFIC_LIGHTS.xGreen.toggleClass("visible", !isYActive);
-  TRAFFIC_LIGHTS.xRed.toggleClass("visible", isYActive);
+const toggleTrafficLights = (isNorthSouthActive) => {
+  TRAFFIC_LIGHTS.yGreen.toggleClass("visible", isNorthSouthActive);
+  TRAFFIC_LIGHTS.yRed.toggleClass("visible", !isNorthSouthActive);
+  TRAFFIC_LIGHTS.xGreen.toggleClass("visible", !isNorthSouthActive);
+  TRAFFIC_LIGHTS.xRed.toggleClass("visible", isNorthSouthActive);
+};
+
+const clearTraffic = (directions) => {
+  directions.forEach(moveCars);
 };
 
 $(document).ready(() => {
-  let isYActive = false;
-  initializeCars(["left", "right"], 6);
-  toggleTrafficLights(!isYActive);
+  const northSouthDirections = ["top1", "top2", "bottom1", "bottom2"];
+  const eastWestDirections = ["left", "right"];
+
+  let isNorthSouthActive = false;
+
+  initializeTraffic(northSouthDirections, 8 / 60);
+  initializeTraffic(eastWestDirections, 6 / 60);
+  toggleTrafficLights(isNorthSouthActive);
 
   setInterval(() => {
-    const incoming = isYActive ? ["left", "right"] : ["top1", "top2", "bottom1", "bottom2"];
-    const moving = isYActive ? ["bottom1", "bottom2", "top1", "top2"] : ["left", "right"];
-    moving.forEach(moveCars);
-    initializeCars(incoming, isYActive ? 6 : 4);
-    toggleTrafficLights(isYActive);
-    isYActive = !isYActive;
-  }, 5000);
+    isNorthSouthActive = !isNorthSouthActive;
+    toggleTrafficLights(isNorthSouthActive);
+  }, 10 * 1000);
+
+  setInterval(() => {
+    const currentMoving = isNorthSouthActive ? northSouthDirections : eastWestDirections;
+    clearTraffic(currentMoving);
+  }, 1000);
+
+  setInterval(() => {
+    $("#topCount").text(MOVING_CARS["top1"].length + MOVING_CARS["top2"].length);
+    $("#bottomCount").text(MOVING_CARS["bottom1"].length + MOVING_CARS["bottom2"].length);
+    $("#leftCount").text(MOVING_CARS["left"].length);
+    $("#rightCount").text(MOVING_CARS["right"].length);
+  }, 1000);
 });

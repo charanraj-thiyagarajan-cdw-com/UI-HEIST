@@ -17,3 +17,13 @@
   width: 100vw;
   overflow: hidden;
 }
+
+.dashboard {
+  position: absolute;
+  padding: 20px;
+}
+
+.count {
+  color: black;
+  font-size: 24px;
+}
