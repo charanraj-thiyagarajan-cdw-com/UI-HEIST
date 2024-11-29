@@ -6,7 +6,7 @@ A living room with tv, remote, speakers, tables, action figures and lights.
 
 You can download the folder and directly open index.html to view the output or you can also use the below hosted link
 
-[UI HEIST](https://charanrajcdw.github.io/UI-HEIST/)
+[UI HEIST Challenge 1](https://charanraj-thiyagarajan-cdw-com.github.io/UI-HEIST/heist-1/index.html)
 
 ## Features available
 

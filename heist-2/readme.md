@@ -6,7 +6,7 @@ Try the car driving experience with our simulator
 
 - You can download the folder and directly open index.html to view the output or you can also use the below hosted link
 
-  [UI HEIST - Challenge 2](https://kavinkumarbaskar1.github.io/ui-heist-chapter-2/)
+  [UI HEIST - Challenge 2](https://charanraj-thiyagarajan-cdw-com.github.io/UI-HEIST/heist-2/index.html)
 
 - For smooth and better experience, use only one key at a time
 
