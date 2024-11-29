@@ -1,0 +1,102 @@
+/* styles for the car */
+
+.car {
+  height: 120px;
+  width: 60px;
+  position: absolute;
+}
+
+.top1,
+.top2 {
+  bottom: -20vh;
+}
+
+.right {
+  transform: rotate(90deg);
+  left: -10vw;
+}
+
+.bottom1,
+.bottom2 {
+  transform: rotate(180deg);
+  top: -20vh;
+}
+
+.left {
+  transform: rotate(270deg);
+  right: -10vw;
+}
+
+/* animations for the car */
+
+@keyframes starttoleft {
+  0% {
+    right: -10vw;
+  }
+  100% {
+    right: var(--start-position);
+  }
+}
+
+@keyframes starttoright {
+  0% {
+    left: -10vw;
+  }
+  100% {
+    left: var(--start-position);
+  }
+}
+
+@keyframes starttobottom {
+  0% {
+    top: -20vh;
+  }
+  100% {
+    top: var(--start-position);
+  }
+}
+
+@keyframes starttotop {
+  0% {
+    bottom: -20vh;
+  }
+  100% {
+    bottom: var(--start-position);
+  }
+}
+
+@keyframes moveleft {
+  0% {
+    right: var(--start-position);
+  }
+  100% {
+    right: calc(150vw + var(--start-position));
+  }
+}
+
+@keyframes moveright {
+  0% {
+    left: var(--start-position);
+  }
+  100% {
+    left: calc(150vw + var(--start-position));
+  }
+}
+
+@keyframes movebottom {
+  0% {
+    top: var(--start-position);
+  }
+  100% {
+    top: calc(150vh + var(--start-position));
+  }
+}
+
+@keyframes movetop {
+  0% {
+    bottom: var(--start-position);
+  }
+  100% {
+    bottom: calc(150vh + var(--start-position));
+  }
+}

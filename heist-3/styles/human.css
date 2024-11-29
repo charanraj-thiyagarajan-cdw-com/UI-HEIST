@@ -1,0 +1,7 @@
+/* styles for the humans */
+
+.human {
+  height: 40px;
+  width: 40px;
+  position: absolute;
+}

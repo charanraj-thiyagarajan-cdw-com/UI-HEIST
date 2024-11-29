@@ -9,16 +9,35 @@
   </head>
   <body>
     <div class="road-bg" id="road">
+      <!-- pavements -->
       <div class="vertival-z-cross vz-lane-1 road" id="verticalZCross"></div>
       <div class="vertival-z-cross vz-lane-2 road" id="verticalZCross"></div>
       <div class="horizontal-z-cross hz-lane-1 road" id="horizontalZCross"></div>
       <div class="horizontal-z-cross hz-lane-2 road" id="horizontalZCross"></div>
+      <!-- roads -->
       <div class="rightways-road road" id="rightRoad"></div>
       <div class="leftways-road road" id="leftRoad"></div>
       <div class="bottomways-road br-lane-1 road" id="bottomRoad1"></div>
       <div class="bottomways-road br-lane-2 road" id="bottomRoad2"></div>
       <div class="topways-road tr-lane-1 road" id="topRoad1"></div>
       <div class="topways-road tr-lane-2 road" id="topRoad2"></div>
+      <!-- traffic lights -->
+      <div class="top-light light-box" id="topLight">
+        <div class="red-light light y-light"></div>
+        <div class="green-light light y-light"></div>
+      </div>
+      <div class="bottom-light light-box" id="bottomLight">
+        <div class="red-light light y-light"></div>
+        <div class="green-light light y-light"></div>
+      </div>
+      <div class="left-light light-box" id="leftLight">
+        <div class="red-light light x-light"></div>
+        <div class="green-light light x-light"></div>
+      </div>
+      <div class="right-light light-box" id="rightLight">
+        <div class="green-light light x-light"></div>
+        <div class="red-light light x-light"></div>
+      </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="index.js" type="module"></script>

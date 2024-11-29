@@ -19,40 +19,34 @@ const CAR_ANIMATIONS = {
   top1: { sp: 10, inc: 13 },
   top2: { sp: 10, inc: 13 },
 };
-const MOVING_CARS = {
-  left: [],
-  right: [],
-  bottom1: [],
-  bottom2: [],
-  top1: [],
-  top2: [],
+const ROAD_ELEMENTS = {
+  left: $("#leftRoad"),
+  right: $("#rightRoad"),
+  bottom1: $("#bottomRoad1"),
+  bottom2: $("#bottomRoad2"),
+  top1: $("#topRoad1"),
+  top2: $("#topRoad2"),
 };
+const TRAFFIC_LIGHTS = {
+  yGreen: $(".y-light.green-light"),
+  yRed: $(".y-light.red-light"),
+  xGreen: $(".x-light.green-light"),
+  xRed: $(".x-light.red-light"),
+};
+const MOVING_CARS = Object.keys(CAR_ANIMATIONS).reduce((acc, key) => ({ ...acc, [key]: [] }), {});
 
-const leftRoad = $("#leftRoad");
-const rightRoad = $("#rightRoad");
-const bottomRoad1 = $("#bottomRoad1");
-const bottomRoad2 = $("#bottomRoad2");
-const topRoad1 = $("#topRoad1");
-const topRoad2 = $("#topRoad2");
+const getRandomCar = () => CARS[Math.floor(Math.random() * CARS.length)];
 
-const addCarEventListener = (car, direction) => {
-  const checkCondition = (direction) => {
-    const rect = car[0].getBoundingClientRect();
-    switch (direction) {
-      case "left":
-        return rect.left <= 0;
-      case "right":
-        return rect.right >= window.innerWidth;
-      case "top1":
-      case "top2":
-        return rect.top <= 0;
-      case "bottom1":
-      case "bottom2":
-        return rect.bottom >= window.innerHeight;
-    }
-  };
+const addAnimationEndListener = (car, direction) => {
   car.on("animationend", () => {
-    if (checkCondition(direction)) {
+    const rect = car[0].getBoundingClientRect();
+    const isOutOfView =
+      (direction === "left" && rect.left <= 0) ||
+      (direction === "right" && rect.right >= window.innerWidth) ||
+      (direction.startsWith("top") && rect.top <= 0) ||
+      (direction.startsWith("bottom") && rect.bottom >= window.innerHeight);
+
+    if (isOutOfView) {
       car.remove();
       MOVING_CARS[direction].shift();
     }
@@ -60,67 +54,64 @@ const addCarEventListener = (car, direction) => {
 };
 
 const createCar = (direction) => {
-  const randomCar = Math.floor(Math.random() * CARS_LENGTH);
-  const animation = CAR_ANIMATIONS[direction];
+  const { src, alt } = getRandomCar();
+  const { sp, inc } = CAR_ANIMATIONS[direction];
   const carsLength = MOVING_CARS[direction].length;
+  const positionOffset = sp - carsLength * inc;
 
-  const startingPosition = animation.sp - carsLength * animation.inc;
   const car = $("<img>", {
-    src: CARS[randomCar].src,
-    alt: CARS[randomCar].alt,
+    src,
+    alt,
     class: `car ${direction}`,
     "data-direction": direction,
     css: {
       animation: `startto${direction.replace(/\d+/g, "")} 1s linear forwards`,
-      "--start-position": `${startingPosition}%`,
+      "--start-position": `${positionOffset}%`,
     },
   });
   setTimeout(() => {
     car.css("animation-delay", `${carsLength * 0.25}s`);
   }, 0);
   MOVING_CARS[direction].push(car);
+  ROAD_ELEMENTS[direction].append(car);
   return car;
 };
 
-const moveCars = (cars) => {
-  let delay = 0;
-  cars.each(function () {
-    const $car = $(this);
-    const direction = $car.data("direction");
-    // setTimeout(() => {
-      $car.css({ animation: `move${direction.replace(/\d+/g, "")} 3s ease-in forwards` });
-    // }, delay * 200);
-    addCarEventListener($car, direction);
-    delay += Math.random() * 1.25 + 0.25;
+const moveCars = (direction) => {
+  MOVING_CARS[direction].forEach((car, index) => {
+    setTimeout(() => {
+      car.css({ animation: `move${direction.replace(/\d+/g, "")} 3s ease-in forwards` });
+    }, index * Math.floor(Math.random() * 10) + 240);
+    addAnimationEndListener(car, direction);
   });
 };
 
-$(document).ready(() => {
-  let alternateFlag = true;
-  for (let i = 0; i < 6; i++) {
-    leftRoad.append(createCar("left"));
-    rightRoad.append(createCar("right"));
-  }
-  setInterval(() => {
-    if (alternateFlag) {
-      moveCars($(".car.left"));
-      moveCars($(".car.right"));
-      for (let i = 0; i < 4; i++) {
-        bottomRoad1.append(createCar("bottom1"));
-        bottomRoad2.append(createCar("bottom2"));
-        topRoad1.append(createCar("top1"));
-        topRoad2.append(createCar("top2"));
-      }
-    } else {
-      moveCars($(".car.top1"));
-      moveCars($(".car.top2"));
-      moveCars($(".car.bottom1"));
-      moveCars($(".car.bottom2"));
-      for (let i = 0; i < 6; i++) {
-        leftRoad.append(createCar("left"));
-        rightRoad.append(createCar("right"));
-      }
+const initializeCars = (directions, count) => {
+  directions.forEach((direction) => {
+    for (let i = 0; i < count; i++) {
+      createCar(direction);
     }
-    alternateFlag = !alternateFlag;
+  });
+};
+
+const toggleTrafficLights = (isYActive) => {
+  TRAFFIC_LIGHTS.yGreen.toggleClass("visible", isYActive);
+  TRAFFIC_LIGHTS.yRed.toggleClass("visible", !isYActive);
+  TRAFFIC_LIGHTS.xGreen.toggleClass("visible", !isYActive);
+  TRAFFIC_LIGHTS.xRed.toggleClass("visible", isYActive);
+};
+
+$(document).ready(() => {
+  let isYActive = false;
+  initializeCars(["left", "right"], 6);
+  toggleTrafficLights(!isYActive);
+
+  setInterval(() => {
+    const incoming = isYActive ? ["left", "right"] : ["top1", "top2", "bottom1", "bottom2"];
+    const moving = isYActive ? ["bottom1", "bottom2", "top1", "top2"] : ["left", "right"];
+    moving.forEach(moveCars);
+    initializeCars(incoming, isYActive ? 6 : 4);
+    toggleTrafficLights(isYActive);
+    isYActive = !isYActive;
   }, 5000);
 });

@@ -1,0 +1,63 @@
+/* styles for the roads */
+
+.road {
+  position: absolute;
+}
+
+.leftways-road {
+  height: 12vh;
+  width: 100vw;
+  top: 52%;
+}
+
+.rightways-road {
+  height: 12vh;
+  width: 100vw;
+  top: 37%;
+}
+
+.bottomways-road {
+  height: 100vh;
+  width: 6vw;
+}
+.br-lane-1 {
+  left: 52%;
+}
+.br-lane-2 {
+  left: 59%;
+}
+
+.topways-road {
+  height: 100vh;
+  width: 6vw;
+}
+.tr-lane-1 {
+  left: 36%;
+}
+.tr-lane-2 {
+  left: 43%;
+}
+
+/* styles for the pavements */
+
+.vertival-z-cross {
+  height: 100vh;
+  width: 3vw;
+}
+.vz-lane-1 {
+  left: 26.5%;
+}
+.vz-lane-2 {
+  left: 30.5%;
+}
+
+.horizontal-z-cross {
+  height: 4vh;
+  width: 100vw;
+}
+.hz-lane-1 {
+  top: 65%;
+}
+.hz-lane-2 {
+  top: 70%;
+}
