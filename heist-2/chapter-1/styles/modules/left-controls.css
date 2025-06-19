@@ -1,0 +1,109 @@
+/* left control panel styles */
+
+.volume-controls {
+  height: 50%;
+  gap: 50px;
+}
+
+.volume-buttons {
+  flex-direction: column;
+  gap: 30px;
+}
+
+.volume-btn {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: #b0b0b0;
+  border: 6px ridge var(--main-red);
+  outline: 1px solid #121212;
+  cursor: pointer;
+}
+
+.volume-btn:hover {
+  background: #808080;
+}
+
+.volume-bar {
+  width: 3rem;
+  height: 75%;
+  background-color: #2b1b0b;
+  display: flex;
+  align-items: flex-end;
+  border: 4px ridge var(--main-red);
+}
+
+.volume-level {
+  width: 100%;
+  background: var(--main-red);
+  height: 50%;
+}
+
+.dpad-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 42%;
+}
+
+.dpad {
+  position: relative;
+  width: 10rem;
+  height: 10rem;
+}
+
+.dpad-btn {
+  position: absolute;
+  background-color: #b0b0b0;
+  height: 33%;
+  width: 33%;
+  border-color: var(--main-red);
+  cursor: pointer;
+  outline: none;
+}
+
+.dpad-btn.center {
+  background-color: #b0b0b0;
+  border: 0;
+  top: 33%;
+  left: 33%;
+}
+
+.dpad-btn.up {
+  top: 0;
+  left: 33%;
+  border-width: 6px 6px 0 6px;
+  border-radius: 10px 10px 0 0;
+}
+
+.dpad-btn.down {
+  top: 66%;
+  left: 33%;
+  border-width: 0 6px 6px 6px;
+  border-radius: 0 0 10px 10px;
+}
+
+.dpad-btn.left {
+  top: 33%;
+  left: 0;
+  border-width: 6px 0 6px 6px;
+  border-radius: 10px 0 0 10px;
+}
+
+.dpad-btn.right {
+  top: 33%;
+  left: 66%;
+  border-width: 6px 6px 6px 0;
+  border-radius: 0 10px 10px 0;
+}
+
+.circle-icon {
+  position: absolute;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  top: 50%;
+  transform: translate(0%, -50%);
+  border-radius: 50%;
+  background-color: #000;
+}

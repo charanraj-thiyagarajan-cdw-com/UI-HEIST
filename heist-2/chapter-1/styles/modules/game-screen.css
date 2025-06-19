@@ -1,0 +1,9 @@
+/* game screen styles */
+
+.game-screen {
+  width: 90%;
+  height: 70%;
+  border: 8px solid var(--main-red);
+  border-radius: 8px;
+  background-color: #121212;
+}

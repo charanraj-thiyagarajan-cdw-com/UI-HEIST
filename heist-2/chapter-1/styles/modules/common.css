@@ -1,0 +1,32 @@
+:root {
+  --main-red: #ae0a15;
+  --dark-red: #920714;
+}
+
+/* common styles */
+
+.btn {
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.btn-container {
+  flex-direction: column;
+}
+
+.btn-label {
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
+}

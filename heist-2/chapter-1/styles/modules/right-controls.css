@@ -1,0 +1,41 @@
+/* right control panel styles */
+
+.power-buttons {
+  flex-direction: column;
+  height: 50%;
+  gap: 20px;
+}
+
+.power-btn {
+  width: 4rem;
+  height: 2.5rem;
+  border-radius: 24px;
+  background: #404040;
+  border: 6px ridge var(--main-red);
+  outline: 1px solid #121212;
+  margin-bottom: 10px;
+}
+
+.power-btn:hover {
+  background: #b0b0b0;
+}
+
+.play-buttons {
+  align-items: flex-end;
+  height: 40%;
+  gap: 20px;
+}
+
+.play-btn {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-image: radial-gradient(circle at center, var(--main-red) 0%, var(--dark-red) 100%);
+  border: 0.5rem ridge var(--main-red);
+  outline: 1px solid #121212;
+  margin-bottom: 10px;
+}
+
+.play-btn:hover {
+  background: #ff0000;
+}
