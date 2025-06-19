@@ -4,11 +4,66 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Super mario</title>
-    <link rel="icon" href="data:," />
+    <link rel="icon" type="image/png" href="./assets/mario.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles/styles.css" />
   </head>
-  <body>
-    <h1>Super mario game</h1>
+  <body class="flex">
+    <div class="console flex">
+      <div class="controls flex left-controls">
+        <div class="volume-controls flex">
+          <div class="volume-buttons flex">
+            <button class="btn volume-btn increase-btn"><img src="./assets/increase.png" alt="increase" class="icon" /></button>
+            <button class="btn volume-btn mute-btn"><img src="./assets/mute.png" alt="mute" class="icon" /></button>
+            <button class="btn volume-btn decrease-btn"><img src="./assets/decrease.png" alt="decrease" class="icon" /></button>
+          </div>
+          <div class="volume-bar">
+            <div class="volume-level"></div>
+          </div>
+        </div>
+        <div class="dpad-container">
+          <div class="dpad">
+            <button class="dpad-btn up"><img src="./assets/up.png" alt="up" class="icon" /></button>
+            <button class="dpad-btn down"><img src="./assets/down.png" alt="down" class="icon" /></button>
+            <button class="dpad-btn left"><img src="./assets/left.png" alt="left" class="icon" /></button>
+            <button class="dpad-btn right"><img src="./assets/right.png" alt="right" class="icon" /></button>
+            <button class="dpad-btn center flex"><div class="circle-icon"></div></button>
+          </div>
+        </div>
+      </div>
+      <div class="game-console flex">
+        <h1>Super mario bros</h1>
+        <div class="game-screen"></div>
+      </div>
+      <div class="controls flex right-controls">
+        <div class="power-buttons flex">
+          <div class="btn-container flex">
+            <button class="btn power-btn start-btn"></button>
+            <p class="btn-label">Start</p>
+          </div>
+          <div class="btn-container flex">
+            <button class="btn power-btn power-btn"></button>
+            <p class="btn-label">Power</p>
+          </div>
+          <div class="btn-container flex">
+            <button class="btn power-btn stop-btn"></button>
+            <p class="btn-label">Stop</p>
+          </div>
+        </div>
+        <div class="play-buttons flex">
+          <div class="btn-container flex">
+            <button class="btn play-btn a-btn"></button>
+            <p class="btn-label">A</p>
+          </div>
+          <div class="btn-container flex">
+            <button class="btn play-btn b-btn"></button>
+            <p class="btn-label">B</p>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="./js/app.js" type="module"></script>
   </body>
