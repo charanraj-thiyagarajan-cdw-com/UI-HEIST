@@ -1,5 +1,5 @@
 // Module for power controls
-import { startCanvasAnimation, stopCanvasAnimation, showCanvas } from "./canvas.js";
+import { startCanvasAnimation, stopCanvasAnimation, showStartScreen } from "./canvas.js";
 import { loadTilesImage } from "./image.js";
 import { playGameAudio, stopGameAudio } from "./volume.js";
 
@@ -22,7 +22,7 @@ export function setupPowerControls() {
     if (isPoweredOn) {
       $powerBtn.css({ background: "#ffffff" });
       $canvas.show();
-      showCanvas();
+      showStartScreen();
       loadTilesImage();
     } else {
       $powerBtn.css({ background: "#ae0a15" });
@@ -34,10 +34,8 @@ export function setupPowerControls() {
   $stopBtn.on("click", () => {
     if (isPoweredOn) {
       stopCanvasAnimation();
+      showStartScreen();
       stopGameAudio();
     }
   });
-
-  $powerBtn.trigger("click");
-  $startBtn.trigger("click");
 }

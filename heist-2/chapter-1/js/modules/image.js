@@ -2,6 +2,7 @@ const tiles = "./assets/sprites/tiles.png";
 const mountain = "./assets/sprites/mountain.png";
 const clouds = "./assets/sprites/clouds.png";
 const characters = "./assets/sprites/characters.png";
+const castle = "./assets/sprites/castle.png";
 
 const items = {
   ground: {
@@ -95,12 +96,19 @@ const items = {
     w: 19,
     h: 32,
   },
+  castle: {
+    src: castle,
+    x: 0,
+    y: 0,
+    w: 80,
+    h: 80,
+  },
 };
 
 let loadedImages = {};
 
 export function loadTilesImage() {
-  const sources = [tiles, mountain, clouds, characters];
+  const sources = [tiles, mountain, clouds, characters, castle];
   sources.forEach((src) => {
     if (loadedImages[src]) return;
     const img = new window.Image();
@@ -163,6 +171,7 @@ const sprites = {
   marioLeft: new CharacterSprite({ character: "marioLeft" }),
   marioRightStand: new CharacterSprite({ character: "marioRightStand" }),
   marioLeftStand: new CharacterSprite({ character: "marioLeftStand" }),
+  castle: new Sprite({ name: "castle" }),
 };
 
 export default function getSprite(name) {

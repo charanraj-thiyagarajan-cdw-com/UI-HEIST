@@ -11,7 +11,7 @@ const keys = {
   right: false,
   left: false,
 };
-const ENDPOINT = 500;
+const ENDPOINT = 2000;
 const marioSprites = {
   rstand: getSprite("marioRightStand"),
   lstand: getSprite("marioLeftStand"),
@@ -144,6 +144,7 @@ function initGame() {
   const pipeSprite = getSprite("pipe");
   const waterSprite = getSprite("water");
   const brickSprite = getSprite("brick");
+  const castleSprite = getSprite("castle");
   platforms = [];
   backgrounds = [];
   scrollOffset = 0;
@@ -210,6 +211,14 @@ function initGame() {
     x += tileW;
     lastWasBrick = false;
   }
+  // Add castle
+  platforms.push(
+    new Platform({
+      x: ENDPOINT + castleSprite.w,
+      y: canvas.height - 2 * tileH - castleSprite.h,
+      sprite: castleSprite,
+    })
+  );
 }
 
 export function startCanvasAnimation() {
@@ -221,8 +230,8 @@ export function startCanvasAnimation() {
 function resetGame() {
   cancelAnimationFrame(animationId);
   animationId = null;
-  initGame();
-  draw();
+  player = null;
+  showStartScreen();
 }
 
 function draw() {
@@ -274,13 +283,41 @@ function draw() {
     }
   }
   if (scrollOffset >= ENDPOINT) {
+    if (animationId) {
+      cancelAnimationFrame(animationId);
+    }
     playFinishAudio();
-    console.log("Reached endpoint");
   }
   if (player.position.y + player.height + 2 > canvas.height) {
     playDeathAudio();
     resetGame();
   }
+}
+
+export function showStartScreen() {
+  if (!canvas) {
+    const $canvas = $(".game-canvas");
+    canvas = $canvas[0];
+    if (!canvas || !canvas.getContext) return;
+    ctx = canvas.getContext("2d");
+  }
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#64adff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  const logoImg = new window.Image();
+  logoImg.src = "./assets/sprites/logo.png";
+  logoImg.onload = function () {
+    const logoW = canvas.width / 2;
+    const logoH = canvas.height / 3;
+    const logoX = (canvas.width - logoW) / 2;
+    const logoY = (canvas.height - logoH) / 2 - 20;
+    ctx.drawImage(logoImg, logoX, logoY, logoW, logoH);
+    ctx.font = "12px 'Press Start 2P', monospace";
+    ctx.fillStyle = "#fff";
+    ctx.textAlign = "center";
+    ctx.fillText("PRESS START TO PLAY", canvas.width / 2, logoY + logoH + 40);
+  };
+  if (logoImg.complete) logoImg.onload();
 }
 
 export function stopCanvasAnimation() {
@@ -296,17 +333,5 @@ export function stopCanvasAnimation() {
 export function movePlayer(direction, event) {
   if (player) {
     player.move(direction, event);
-  }
-}
-
-export function showCanvas() {
-  if (!canvas) {
-    const $canvas = $(".game-canvas");
-    canvas = $canvas[0];
-    if (!canvas || !canvas.getContext) return;
-    ctx = canvas.getContext("2d");
-  }
-  if (ctx && canvas) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 }
