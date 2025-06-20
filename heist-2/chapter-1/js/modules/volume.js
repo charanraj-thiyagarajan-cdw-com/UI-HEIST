@@ -53,6 +53,9 @@ export function setupVolumeControls() {
 
   function applyVolume() {
     if (audio) audio.volume = volume;
+    if (jumpAudio) jumpAudio.volume = volume;
+    if (deathAudio) deathAudio.volume = volume;
+    if (finishAudio) finishAudio.volume = volume;
     updateVolumeBar();
   }
 
