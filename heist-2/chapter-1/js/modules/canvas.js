@@ -10,7 +10,7 @@ const keys = {
   right: false,
   left: false,
 };
-const ENDPOINT = 1000;
+const ENDPOINT = 3000;
 
 class Platform {
   constructor({ x, y, sprite }) {
@@ -48,6 +48,7 @@ class Player {
     this.gravity = 0.2;
     this.position = { x: 20, y: canvas.height - this.height - 32 };
     this.velocity = { x: 0, y: 0 };
+    this.onPlatform = false;
   }
   draw() {
     ctx.fillStyle = this.color;
@@ -72,7 +73,7 @@ class Player {
         }
         break;
       case "down":
-        if (this.position.y + this.height + this.velocity.y < canvas.height) {
+        if (!this.onPlatform && this.position.y + this.height + this.velocity.y < canvas.height) {
           this.velocity.y += 25;
         }
         break;
@@ -94,8 +95,7 @@ class Player {
   }
 }
 
-export function startCanvasAnimation() {
-  if (animationId || !canvas || !canvas.getContext) return;
+function initGame() {
   totalScreenWidth = ENDPOINT + canvas.width;
   ctx = canvas.getContext("2d");
   player = new Player();
@@ -104,30 +104,69 @@ export function startCanvasAnimation() {
   const smallCloudSprite = getSprite("smallCloud");
   const mediumCloudSprite = getSprite("mediumCloud");
   const largeCloudSprite = getSprite("largeCloud");
+  const shrubSprite = getSprite("shrub");
+  const pipeSprite = getSprite("pipe");
+  const waterSprite = getSprite("water");
   platforms = [];
   backgrounds = [];
+  scrollOffset = 0;
   const tileW = groundSprite.w;
   const tileH = groundSprite.h;
-  // Add mountains at random x positions, stacked at ground height
-  for (let i = 0; i < 5; i++) {
+  // Add mountains
+  for (let i = 0; i < 10; i++) {
     let mx = Math.floor(Math.random() * totalScreenWidth);
-    let my = canvas.height - 2 * tileH - mountainSprite.h + 8;
+    let my = canvas.height - 2 * tileH - mountainSprite.h;
     backgrounds.push(new Background({ x: mx, y: my, sprite: mountainSprite }));
   }
-  // Add clouds at random positions
+  // Add shrubs
+  for (let i = 0; i < 15; i++) {
+    let sx = Math.floor(Math.random() * totalScreenWidth);
+    let sy = canvas.height - 2 * tileH - shrubSprite.h;
+    backgrounds.push(new Background({ x: sx, y: sy, sprite: shrubSprite }));
+  }
+  // Add clouds
   const cloudSprites = [smallCloudSprite, mediumCloudSprite, largeCloudSprite];
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 15; i++) {
     let cx = Math.floor(Math.random() * totalScreenWidth);
     let cy = Math.floor(Math.random() * (canvas.height / 2));
     let sprite = cloudSprites[Math.floor(Math.random() * cloudSprites.length)];
     backgrounds.push(new Background({ x: cx, y: cy, sprite }));
   }
   // Add ground platforms (two stacked tiles)
-  for (let x = 0; x < totalScreenWidth; x += tileW) {
+  let x = 0;
+  let lastWasWater = false;
+  while (x < totalScreenWidth) {
+    if (!lastWasWater && Math.random() < 0.15 && x + tileW * 4 < totalScreenWidth) {
+      for (let wx = x; wx < x + tileW * 4; wx += waterSprite.w) {
+        backgrounds.push(new Background({ x: wx, y: canvas.height - 2 * tileH, sprite: waterSprite }));
+      }
+      x += tileW * 4;
+      lastWasWater = true;
+      continue;
+    }
     platforms.push(new Platform({ x: x, y: canvas.height - tileH, sprite: groundSprite }));
     platforms.push(new Platform({ x: x, y: canvas.height - 2 * tileH, sprite: groundSprite }));
+    x += tileW;
+    lastWasWater = false;
   }
+  // Add pipes platforms
+  for (let i = 0; i < 4; i++) {
+    let px = Math.floor(Math.random() * (ENDPOINT - canvas.width)) + canvas.width;
+    let py = canvas.height - 2 * tileH - pipeSprite.h;
+    platforms.push(new Platform({ x: px, y: py, sprite: pipeSprite }));
+  }
+}
 
+export function startCanvasAnimation() {
+  if (animationId || !canvas || !canvas.getContext) return;
+  initGame();
+  draw();
+}
+
+function resetGame() {
+  cancelAnimationFrame(animationId);
+  animationId = null;
+  initGame();
   draw();
 }
 
@@ -139,8 +178,16 @@ function draw() {
   backgrounds.forEach((background) => {
     background.draw();
   });
+  player.onPlatform = false;
   platforms.forEach((platform) => {
     platform.draw();
+    if (
+      Math.abs(player.position.y + player.height - platform.position.y) < 2 &&
+      player.position.x + player.width > platform.position.x &&
+      player.position.x < platform.position.x + platform.width
+    ) {
+      player.onPlatform = true;
+    }
     if (
       player.position.y + player.height <= platform.position.y &&
       player.position.y + player.height + player.velocity.y > platform.position.y &&
@@ -160,15 +207,22 @@ function draw() {
     if (keys.right && scrollOffset < ENDPOINT) {
       scrollOffset += 2.5;
       platforms.forEach((platform) => (platform.position.x -= 2.5));
-      backgrounds.forEach((background) => (background.position.x -= 1.5));
+      backgrounds.forEach((background) => {
+        background.position.x -= background.sprite.name === "water" ? 2.5 : 1.5;
+      });
     } else if (keys.left && scrollOffset > 0) {
       scrollOffset -= 2.5;
       platforms.forEach((platform) => (platform.position.x += 2.5));
-      backgrounds.forEach((background) => (background.position.x += 1.5));
+      backgrounds.forEach((background) => {
+        background.position.x += background.sprite.name === "water" ? 2.5 : 1.5;
+      });
     }
   }
   if (scrollOffset >= ENDPOINT) {
     console.log("Reached endpoint");
+  }
+  if (player.position.y + player.height > canvas.height) {
+    resetGame();
   }
 }
 

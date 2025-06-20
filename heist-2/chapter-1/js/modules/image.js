@@ -10,12 +10,26 @@ const items = {
     w: 16,
     h: 16,
   },
+  water: {
+    src: tiles,
+    x: 50,
+    y: 397,
+    w: 20,
+    h: 20,
+  },
   mountain: {
     src: mountain,
     x: 0,
     y: 0,
     w: 90,
     h: 39,
+  },
+  shrub: {
+    src: tiles,
+    x: 198.5,
+    y: 162.5,
+    w: 53,
+    h: 17,
   },
   smallCloud: {
     src: clouds,
@@ -38,6 +52,13 @@ const items = {
     w: 64,
     h: 24,
   },
+  pipe: {
+    src: tiles,
+    x: 0,
+    y: 180,
+    w: 35,
+    h: 35,
+  },
 };
 
 let loadedImages = {};
@@ -57,6 +78,7 @@ export function loadTilesImage() {
 class Sprite {
   constructor({ name, sw = 1, sh = 1 } = {}) {
     let item = items[name];
+    this.name = name;
     this.x = item.x;
     this.y = item.y;
     this.w = item.w;
@@ -79,6 +101,9 @@ const sprites = {
   smallCloud: new Sprite({ name: "smallCloud", sw: 1.5 }),
   mediumCloud: new Sprite({ name: "mediumCloud", sw: 1.5 }),
   largeCloud: new Sprite({ name: "largeCloud", sw: 1.5 }),
+  shrub: new Sprite({ name: "shrub" }),
+  pipe: new Sprite({ name: "pipe" }),
+  water: new Sprite({ name: "water" }),
 };
 
 export default function getSprite(name) {
