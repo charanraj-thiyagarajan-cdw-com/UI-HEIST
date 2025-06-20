@@ -1,7 +1,7 @@
-const tiles = "assets/sprites/tiles.png";
-const mountain = "assets/sprites/mountain.png";
-const clouds = "assets/sprites/clouds.png";
-const characters = "assets/sprites/characters.png";
+const tiles = "./assets/sprites/tiles.png";
+const mountain = "./assets/sprites/mountain.png";
+const clouds = "./assets/sprites/clouds.png";
+const characters = "./assets/sprites/characters.png";
 
 const items = {
   ground: {

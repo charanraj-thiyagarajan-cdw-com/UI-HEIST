@@ -1,5 +1,6 @@
 // Module for game canvas animation
 import getSprite from "./image.js";
+import { playJumpAudio, playDeathAudio, playFinishAudio } from "./volume.js";
 
 let animationId = null;
 let ctx, canvas;
@@ -10,7 +11,7 @@ const keys = {
   right: false,
   left: false,
 };
-const ENDPOINT = 1000;
+const ENDPOINT = 500;
 const marioSprites = {
   rstand: getSprite("marioRightStand"),
   lstand: getSprite("marioLeftStand"),
@@ -58,7 +59,7 @@ class Player {
     this.frames = 1;
     this.frameTick = 0;
     this.frameRate = 16;
-    this.currentSprite = "lstand";
+    this.currentSprite = "rstand";
   }
   draw() {
     if (this.currentSprite === "left") {
@@ -90,8 +91,9 @@ class Player {
     this.velocity = { x: 0, y: 0 };
     switch (direction) {
       case "up":
-        if (this.position.y + this.height + this.velocity.y > 0) {
-          this.velocity.y -= 50;
+        if (this.position.y + this.height + this.velocity.y > 0 && this.onPlatform) {
+          this.velocity.y -= 75;
+          playJumpAudio();
         }
         break;
       case "down":
@@ -173,10 +175,10 @@ function initGame() {
 
   while (x < totalScreenWidth) {
     if (!lastWasWater && x > 100 && Math.random() < 0.15 && x + tileW * 4 < totalScreenWidth) {
-      for (let wx = x; wx < x + tileW * 4; wx += waterSprite.w) {
+      for (let wx = x; wx < x + tileW * 2; wx += waterSprite.w) {
         backgrounds.push(new Background({ x: wx, y: canvas.height - 2 * tileH, sprite: waterSprite }));
       }
-      x += tileW * 4;
+      x += tileW * 2;
       lastWasWater = true;
       continue;
     }
@@ -272,9 +274,11 @@ function draw() {
     }
   }
   if (scrollOffset >= ENDPOINT) {
+    playFinishAudio();
     console.log("Reached endpoint");
   }
   if (player.position.y + player.height + 2 > canvas.height) {
+    playDeathAudio();
     resetGame();
   }
 }
