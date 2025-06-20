@@ -65,7 +65,7 @@ class Player {
     this.width = 16;
     this.height = 16;
     this.gravity = 0.2;
-    this.speed = 1;
+    this.speed = 2;
     this.position = { x: 20, y: canvas.height - this.height * 4 };
     this.velocity = { x: 0, y: 0 };
     this.onPlatform = false;
@@ -106,7 +106,7 @@ class Player {
     switch (direction) {
       case "up":
         if (this.position.y + this.height + this.velocity.y > 0 && this.onPlatform) {
-          this.velocity.y -= 75;
+          this.velocity.y -= 50;
           playJumpAudio();
         }
         break;

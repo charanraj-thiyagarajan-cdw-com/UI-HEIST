@@ -1,11 +1,14 @@
 // Module for volume controls
 let audio, jumpAudio, deathAudio, finishAudio;
+let volume = 0.5;
 
 export function playGameAudio() {
   if (!audio) {
     audio = new Audio("./assets/audio/world.mp3");
     audio.loop = true;
   }
+  audio.currentTime = 0;
+  audio.volume = volume;
   audio.play();
 }
 
@@ -21,6 +24,7 @@ export function playJumpAudio() {
     jumpAudio = new Audio("./assets/audio/jump.ogg");
   }
   jumpAudio.currentTime = 0;
+  jumpAudio.volume = volume;
   jumpAudio.play();
 }
 
@@ -29,6 +33,7 @@ export function playDeathAudio() {
     deathAudio = new Audio("./assets/audio/death.wav");
   }
   deathAudio.currentTime = 0;
+  deathAudio.volume = volume;
   deathAudio.play();
 }
 
@@ -37,6 +42,7 @@ export function playFinishAudio() {
     finishAudio = new Audio("./assets/audio/finish.mp3");
   }
   finishAudio.currentTime = 0;
+  finishAudio.volume = volume;
   finishAudio.play();
 }
 
@@ -45,7 +51,6 @@ export function setupVolumeControls() {
   const $decreaseBtn = $(".decrease-btn");
   const $muteBtn = $(".mute-btn");
   const $volumeLevel = $(".volume-level");
-  let volume = 0.5;
 
   function updateVolumeBar() {
     $volumeLevel.css("height", `${volume * 100}%`);
