@@ -1,5 +1,6 @@
 // Module for power controls
 import { startCanvasAnimation, stopCanvasAnimation, showCanvas } from "./canvas.js";
+import { loadTilesImage } from "./image.js";
 
 export function setupPowerControls() {
   const $startBtn = $(".start-btn");
@@ -20,6 +21,7 @@ export function setupPowerControls() {
       $powerBtn.css({ background: "#ffffff" });
       $canvas.show();
       showCanvas();
+      loadTilesImage();
     } else {
       $powerBtn.css({ background: "#ae0a15" });
       $canvas.hide();
