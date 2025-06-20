@@ -1,5 +1,5 @@
 // Module for power controls
-import { startCanvasAnimation, stopCanvasAnimation } from "./canvas.js";
+import { startCanvasAnimation, stopCanvasAnimation, showCanvas } from "./canvas.js";
 
 export function setupPowerControls() {
   const $startBtn = $(".start-btn");
@@ -19,6 +19,7 @@ export function setupPowerControls() {
     if (isPoweredOn) {
       $powerBtn.css({ background: "#ffffff" });
       $canvas.show();
+      showCanvas();
     } else {
       $powerBtn.css({ background: "#ae0a15" });
       $canvas.hide();
@@ -31,4 +32,6 @@ export function setupPowerControls() {
       stopCanvasAnimation();
     }
   });
+  $powerBtn.trigger("click");
+  $startBtn.trigger("click");
 }
