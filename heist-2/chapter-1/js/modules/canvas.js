@@ -246,8 +246,17 @@ export function startCanvasAnimation() {
 function resetGame() {
   cancelAnimationFrame(animationId);
   animationId = null;
+  if (player) {
+    player.velocity = { x: 0, y: 0 };
+  }
   player = null;
-  showStartScreen();
+  platforms = [];
+  backgrounds = [];
+  scrollOffset = 0;
+  totalScreenWidth = 0;
+  keys.left = false;
+  keys.right = false;
+  showGameOverScreen();
 }
 
 function draw() {
@@ -310,7 +319,7 @@ function draw() {
   }
 }
 
-export function showStartScreen() {
+export function showLogoScreen() {
   if (!canvas) {
     const $canvas = $(".game-canvas");
     canvas = $canvas[0];
@@ -334,6 +343,32 @@ export function showStartScreen() {
     ctx.fillText("PRESS START TO PLAY", canvas.width / 2, logoY + logoH + 40);
   };
   if (logoImg.complete) logoImg.onload();
+}
+
+export function showGameOverScreen() {
+  if (!canvas) {
+    const $canvas = $(".game-canvas");
+    canvas = $canvas[0];
+    if (!canvas || !canvas.getContext) return;
+    ctx = canvas.getContext("2d");
+  }
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#64adff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  const gameOverImg = new window.Image();
+  gameOverImg.src = "./assets/sprites/gameover.png";
+  gameOverImg.onload = function () {
+    const imgW = canvas.width / 2;
+    const imgH = canvas.height / 3;
+    const imgX = (canvas.width - imgW) / 2;
+    const imgY = (canvas.height - imgH) / 2 - 20;
+    ctx.drawImage(gameOverImg, imgX, imgY, imgW, imgH);
+    ctx.font = "12px 'Press Start 2P', monospace";
+    ctx.fillStyle = "#fff";
+    ctx.textAlign = "center";
+    ctx.fillText("PRESS START TO PLAY", canvas.width / 2, imgY + imgH + 40);
+  };
+  if (gameOverImg.complete) gameOverImg.onload();
 }
 
 export function stopCanvasAnimation() {
