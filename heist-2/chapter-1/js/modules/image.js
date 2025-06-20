@@ -96,6 +96,34 @@ const items = {
     w: 19,
     h: 32,
   },
+  luigiRight: {
+    src: characters,
+    x: 293,
+    y: 64,
+    w: 19,
+    h: 32,
+  },
+  luigiLeft: {
+    src: characters,
+    x: 220,
+    y: 64,
+    w: 19,
+    h: 32,
+  },
+  luigiRightStand: {
+    src: characters,
+    x: 236,
+    y: 64,
+    w: 19,
+    h: 32,
+  },
+  luigiLeftStand: {
+    src: characters,
+    x: 218,
+    y: 64,
+    w: 19,
+    h: 32,
+  },
   castle: {
     src: castle,
     x: 0,
@@ -171,6 +199,10 @@ const sprites = {
   marioLeft: new CharacterSprite({ character: "marioLeft" }),
   marioRightStand: new CharacterSprite({ character: "marioRightStand" }),
   marioLeftStand: new CharacterSprite({ character: "marioLeftStand" }),
+  luigiRight: new CharacterSprite({ character: "luigiRight" }),
+  luigiLeft: new CharacterSprite({ character: "luigiLeft" }),
+  luigiRightStand: new CharacterSprite({ character: "luigiRightStand" }),
+  luigiLeftStand: new CharacterSprite({ character: "luigiLeftStand" }),
   castle: new Sprite({ name: "castle" }),
 };
 

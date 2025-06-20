@@ -12,12 +12,25 @@ const keys = {
   left: false,
 };
 const ENDPOINT = 2000;
-const marioSprites = {
-  rstand: getSprite("marioRightStand"),
-  lstand: getSprite("marioLeftStand"),
-  right: getSprite("marioRight"),
-  left: getSprite("marioLeft"),
-};
+let currentCharacter = "mario";
+
+function getCharacterSprites(character = currentCharacter) {
+  if (character === "luigi") {
+    return {
+      rstand: getSprite("luigiRightStand"),
+      lstand: getSprite("luigiLeftStand"),
+      right: getSprite("luigiRight"),
+      left: getSprite("luigiLeft"),
+    };
+  } else {
+    return {
+      rstand: getSprite("marioRightStand"),
+      lstand: getSprite("marioLeftStand"),
+      right: getSprite("marioRight"),
+      left: getSprite("marioLeft"),
+    };
+  }
+}
 
 class Platform {
   constructor({ x, y, sprite }) {
@@ -60,16 +73,17 @@ class Player {
     this.frameTick = 0;
     this.frameRate = 16;
     this.currentSprite = "rstand";
+    this.sprites = getCharacterSprites();
   }
   draw() {
     if (this.currentSprite === "left") {
-      marioSprites.left.draw(ctx, -this.frames, this.position.x, this.position.y, this.width, this.height);
+      this.sprites.left.draw(ctx, -this.frames, this.position.x, this.position.y, this.width, this.height);
     } else if (this.currentSprite === "right") {
-      marioSprites.right.draw(ctx, this.frames, this.position.x, this.position.y, this.width, this.height);
+      this.sprites.right.draw(ctx, this.frames, this.position.x, this.position.y, this.width, this.height);
     } else if (this.currentSprite === "rstand") {
-      marioSprites.rstand.draw(ctx, 1, this.position.x, this.position.y, this.width, this.height);
+      this.sprites.rstand.draw(ctx, 1, this.position.x, this.position.y, this.width, this.height);
     } else {
-      marioSprites.lstand.draw(ctx, 1, this.position.x, this.position.y, this.width, this.height);
+      this.sprites.lstand.draw(ctx, 1, this.position.x, this.position.y, this.width, this.height);
     }
   }
   update() {
@@ -120,10 +134,12 @@ class Player {
         }
         break;
       case "a":
-        this.color = "#4caf50";
+        currentCharacter = "mario";
+        this.sprites = getCharacterSprites(currentCharacter);
         break;
       case "b":
-        this.color = "#ae0a15";
+        currentCharacter = "luigi";
+        this.sprites = getCharacterSprites(currentCharacter);
         break;
     }
     this.update();
