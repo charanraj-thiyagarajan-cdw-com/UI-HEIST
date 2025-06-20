@@ -10,7 +10,13 @@ const keys = {
   right: false,
   left: false,
 };
-const ENDPOINT = 3000;
+const ENDPOINT = 1000;
+const marioSprites = {
+  rstand: getSprite("marioRightStand"),
+  lstand: getSprite("marioLeftStand"),
+  right: getSprite("marioRight"),
+  left: getSprite("marioLeft"),
+};
 
 class Platform {
   constructor({ x, y, sprite }) {
@@ -42,19 +48,35 @@ class Background {
 
 class Player {
   constructor() {
-    this.width = 10;
-    this.height = 10;
-    this.color = "#ae0a15";
+    this.width = 16;
+    this.height = 16;
     this.gravity = 0.2;
-    this.position = { x: 20, y: canvas.height - this.height - 32 };
+    this.speed = 1;
+    this.position = { x: 20, y: canvas.height - this.height * 4 };
     this.velocity = { x: 0, y: 0 };
     this.onPlatform = false;
+    this.frames = 1;
+    this.frameTick = 0;
+    this.frameRate = 16;
+    this.currentSprite = "lstand";
   }
   draw() {
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+    if (this.currentSprite === "left") {
+      marioSprites.left.draw(ctx, -this.frames, this.position.x, this.position.y, this.width, this.height);
+    } else if (this.currentSprite === "right") {
+      marioSprites.right.draw(ctx, this.frames, this.position.x, this.position.y, this.width, this.height);
+    } else if (this.currentSprite === "rstand") {
+      marioSprites.rstand.draw(ctx, 1, this.position.x, this.position.y, this.width, this.height);
+    } else {
+      marioSprites.lstand.draw(ctx, 1, this.position.x, this.position.y, this.width, this.height);
+    }
   }
   update() {
+    this.frameTick++;
+    if (this.frameTick % this.frameRate === 0) {
+      this.frames++;
+      if (this.frames >= 4) this.frames = 1;
+    }
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
     this.draw();
@@ -78,10 +100,22 @@ class Player {
         }
         break;
       case "left":
-        keys.left = event === "down" ? true : false;
+        if (event == "down") {
+          keys.left = true;
+          this.currentSprite = "left";
+        } else {
+          keys.left = false;
+          this.currentSprite = "lstand";
+        }
         break;
       case "right":
-        keys.right = event === "down" ? true : false;
+        if (event === "down") {
+          keys.right = true;
+          this.currentSprite = "right";
+        } else {
+          keys.right = false;
+          this.currentSprite = "rstand";
+        }
         break;
       case "a":
         this.color = "#4caf50";
@@ -107,6 +141,7 @@ function initGame() {
   const shrubSprite = getSprite("shrub");
   const pipeSprite = getSprite("pipe");
   const waterSprite = getSprite("water");
+  const brickSprite = getSprite("brick");
   platforms = [];
   backgrounds = [];
   scrollOffset = 0;
@@ -135,8 +170,9 @@ function initGame() {
   // Add ground platforms (two stacked tiles)
   let x = 0;
   let lastWasWater = false;
+
   while (x < totalScreenWidth) {
-    if (!lastWasWater && Math.random() < 0.15 && x + tileW * 4 < totalScreenWidth) {
+    if (!lastWasWater && x > 100 && Math.random() < 0.15 && x + tileW * 4 < totalScreenWidth) {
       for (let wx = x; wx < x + tileW * 4; wx += waterSprite.w) {
         backgrounds.push(new Background({ x: wx, y: canvas.height - 2 * tileH, sprite: waterSprite }));
       }
@@ -154,6 +190,23 @@ function initGame() {
     let px = Math.floor(Math.random() * (ENDPOINT - canvas.width)) + canvas.width;
     let py = canvas.height - 2 * tileH - pipeSprite.h;
     platforms.push(new Platform({ x: px, y: py, sprite: pipeSprite }));
+  }
+  // Add combinations of 3-5 bricks
+  let lastWasBrick = false;
+  x = Math.floor(canvas.width / 2);
+  while (x < totalScreenWidth) {
+    if (!lastWasBrick && Math.random() < 0.15) {
+      const numBricks = Math.floor(Math.random() * 3) + 3;
+      const brickY = Math.floor(canvas.height / 4 + Math.random() * (canvas.height / 4));
+      for (let bx = 0; bx < numBricks; bx++) {
+        platforms.push(new Platform({ x: x + bx * brickSprite.sw, y: brickY, sprite: brickSprite }));
+      }
+      x += numBricks * brickSprite.sw;
+      lastWasBrick = true;
+      continue;
+    }
+    x += tileW;
+    lastWasBrick = false;
   }
 }
 
@@ -199,29 +252,29 @@ function draw() {
   });
   player.update();
   if (keys.left && player.position.x > 20) {
-    player.velocity.x = -2.5;
+    player.velocity.x = -player.speed;
   } else if (keys.right && player.position.x < 120) {
-    player.velocity.x = 2.5;
+    player.velocity.x = player.speed;
   } else {
     player.velocity.x = 0;
     if (keys.right && scrollOffset < ENDPOINT) {
-      scrollOffset += 2.5;
-      platforms.forEach((platform) => (platform.position.x -= 2.5));
+      scrollOffset += player.speed;
+      platforms.forEach((platform) => (platform.position.x -= player.speed));
       backgrounds.forEach((background) => {
-        background.position.x -= background.sprite.name === "water" ? 2.5 : 1.5;
+        background.position.x -= background.sprite.name === "water" ? player.speed : player.speed * 0.66;
       });
     } else if (keys.left && scrollOffset > 0) {
-      scrollOffset -= 2.5;
-      platforms.forEach((platform) => (platform.position.x += 2.5));
+      scrollOffset -= player.speed;
+      platforms.forEach((platform) => (platform.position.x += player.speed));
       backgrounds.forEach((background) => {
-        background.position.x += background.sprite.name === "water" ? 2.5 : 1.5;
+        background.position.x += background.sprite.name === "water" ? player.speed : player.speed * 0.66;
       });
     }
   }
   if (scrollOffset >= ENDPOINT) {
     console.log("Reached endpoint");
   }
-  if (player.position.y + player.height > canvas.height) {
+  if (player.position.y + player.height + 2 > canvas.height) {
     resetGame();
   }
 }

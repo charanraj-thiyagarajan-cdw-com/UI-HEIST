@@ -1,6 +1,7 @@
 const tiles = "assets/sprites/tiles.png";
 const mountain = "assets/sprites/mountain.png";
 const clouds = "assets/sprites/clouds.png";
+const characters = "assets/sprites/characters.png";
 
 const items = {
   ground: {
@@ -59,12 +60,47 @@ const items = {
     w: 35,
     h: 35,
   },
+  brick: {
+    src: tiles,
+    x: 0,
+    y: 18,
+    w: 18,
+    h: 18,
+  },
+  marioRight: {
+    src: characters,
+    x: 293,
+    y: 0,
+    w: 19,
+    h: 32,
+  },
+  marioLeft: {
+    src: characters,
+    x: 220,
+    y: 0,
+    w: 19,
+    h: 32,
+  },
+  marioRightStand: {
+    src: characters,
+    x: 236,
+    y: 0,
+    w: 19,
+    h: 32,
+  },
+  marioLeftStand: {
+    src: characters,
+    x: 218,
+    y: 0,
+    w: 19,
+    h: 32,
+  },
 };
 
 let loadedImages = {};
 
 export function loadTilesImage() {
-  const sources = [tiles, mountain, clouds];
+  const sources = [tiles, mountain, clouds, characters];
   sources.forEach((src) => {
     if (loadedImages[src]) return;
     const img = new window.Image();
@@ -95,6 +131,24 @@ class Sprite {
   }
 }
 
+class CharacterSprite {
+  constructor({ character }) {
+    this.character = character;
+    let item = items[character];
+    this.x = item.x;
+    this.y = item.y;
+    this.w = item.w;
+    this.h = item.h;
+    this.src = item.src;
+  }
+  draw(ctx, frame, dx, dy, w, h) {
+    const img = loadedImages[this.src];
+    if (img) {
+      ctx.drawImage(img, this.x + frame * this.w, this.y, this.w, this.h, dx, dy, w, h);
+    }
+  }
+}
+
 const sprites = {
   ground: new Sprite({ name: "ground" }),
   mountain: new Sprite({ name: "mountain" }),
@@ -104,6 +158,11 @@ const sprites = {
   shrub: new Sprite({ name: "shrub" }),
   pipe: new Sprite({ name: "pipe" }),
   water: new Sprite({ name: "water" }),
+  brick: new Sprite({ name: "brick", sw: 0.75, sh: 0.75 }),
+  marioRight: new CharacterSprite({ character: "marioRight" }),
+  marioLeft: new CharacterSprite({ character: "marioLeft" }),
+  marioRightStand: new CharacterSprite({ character: "marioRightStand" }),
+  marioLeftStand: new CharacterSprite({ character: "marioLeftStand" }),
 };
 
 export default function getSprite(name) {
